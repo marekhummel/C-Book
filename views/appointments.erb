@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Appointments</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="tablestyles.css">
+</head>
+<body>
+  <header>
+    <h1>Appointments</h1>
+    <nav>
+        <ul>
+          <li><a href="/" title="Home">Back</a></li>
+        </ul>   
+    </nav>
+  </header>
+  <section>
+    <p>Songs:</p>
+    <table>
+      <tr id="head"><td>Title</td><td>Name</td><td>Surname</td><td>Start</td><td>End</td>
+
+        <% for hashtable in @appointments %>
+        <tr><td><%= hashtable["Title"] %></td>
+        <td><%= hashtable["Name"] %></td>
+        <td><%= hashtable["Surname"] %></td>
+        <td><%= hashtable["Start"] %></td>
+        <td><%= hashtable["End"] %></td>
+        </tr>
+        <% end %>
+
+
+    </table>
+  </section>
+</body>
+</html>
