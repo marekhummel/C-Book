@@ -1,0 +1,21 @@
+TO DO
+-----
+PRIORITÄT:
+
+3	DateTime in DB ?
+
+2	Sign Up
+	Sign In
+
+5	Styles.css
+
+1	New appointment (userid transfer)
+
+4	Layout bei User
+
+
+
+
+New Appointment
+	- Start / End - DTP
+	- Conts: ComboBox

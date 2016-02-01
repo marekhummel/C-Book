@@ -1,0 +1,48 @@
+<p>Add Appointment</p>
+
+<form action="/newappointment/" method="post">
+    
+    <p>Titel: <input type="text" name="title" placeholder="Title"></p>
+
+
+    <% for line in ["start", "end"] %>
+    
+	    <p><%= line.capitalize %>
+
+	    	<select name=<%= line + "month" %>>
+				<% for month in 1..12 %>
+			  		<option><%= (month < 10 ? "0" : "") + month.to_s %></option>
+				<% end %>
+			</select>
+			<select name=<%= line + "day" %>>
+				<% for day in 1..31 %>
+			  		<option><%= (day < 10 ? "0" : "") + day.to_s %></option>
+				<% end %>
+			</select> 
+			<select name=<%= line + "year" %>>
+				<% for year in 2000..2030 %>
+			  		<option><%= year.to_s %></option>
+				<% end %>
+			</select> 
+			<select name=<%= line + "hours" %> style="margin-left: 25px;" >
+				<% for hour in 0..23 %>
+			  		<option><%= (hour < 10 ? "0" : "") + hour.to_s %></option>
+				<% end %>
+			</select> 
+			<select name=<%= line + "mins" %>>
+				<% for min in 0..59 %>
+			  		<option><%= (min < 10 ? "0" : "") + min.to_s %></option>
+				<% end %>
+			</select> 
+			<select name=<%= line + "secs" %>>
+				<% for sec in 0..59 %>
+			  		<option><%= (sec < 10 ? "0" : "") + sec.to_s %></option>
+				<% end %>
+			</select> 
+
+		</p>
+
+	<% end %>
+
+    <input type="submit" value="Save appointment">
+</form>

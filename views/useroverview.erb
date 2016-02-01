@@ -1,0 +1,13 @@
+<!-- OVERVIEW OF THE USERS -->
+
+<p>Users:</p>
+
+<p><%= @useroverview %></p>   
+
+<% for user in @useroverview %>
+  <a href=<%= "/users/" + user["ID"].to_s %> title="User">
+    <%= user["Name"] + " " + user["Surname"] %>
+  </a>
+  <br /><br />
+<% end %>
+

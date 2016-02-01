@@ -1,0 +1,20 @@
+<!-- OVERVIEW OF THE APPOINTMENTS -->
+
+<p>Appointments:</p>
+
+<p><%= @appointmentoverview %></p>   
+
+<table>
+  <tr id="head"><td>Title</td><td>Name</td><td>Surname</td><td>Start</td><td>End</td></tr>
+
+  <% for hashtable in @appointmentoverview %>
+    <tr>
+      <td><%= hashtable["Title"] %></td>
+      <td><%= hashtable["Name"] %></td>
+      <td><%= hashtable["Surname"] %></td>
+      <td><%= hashtable["Start"] %></td>
+      <td><%= hashtable["End"] %></td>
+    </tr>
+  <% end %>
+</table>
+

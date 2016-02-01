@@ -1,0 +1,28 @@
+<!-- COMMON LAYOUT -->
+<!doctype html>
+<html lang="en">
+<head>
+  <title>C-Book</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>C-Book</h1>
+      <ul>
+        <li><a href=<%="" + @@backroute %> title="Home">Back</a></li>
+      </ul>   
+    <p>---------------------------------------------</p>
+  </header>
+
+  <section>
+    <%= yield %>
+  </section>
+
+  <footer>
+    <br /><br /><br />
+    <p>---------------------------------------------</p>
+    <h1>FOOTER</p>
+  </footer>
+</body>
+</html>
