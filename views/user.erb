@@ -7,7 +7,7 @@
 <p>-----------------------</p>
 <br /> <br /> <br />
 
-<a href=<%= "/users/" + @userid.to_s + "/new" %> title="New">New appointment</a>
+<a href=<%= "/users/" + @@currentuserid.to_s + "/new" %> title="New">New appointment</a>
 
 <% for hashtable in @appointments %>
   <% id = hashtable["ID"] %>
@@ -16,6 +16,7 @@
   <h3><%= "Title: " + hashtable["Title"].to_s %></h3>
   <i> <%= "    -- ID: " + id.to_s %> </i><i><%= "    -  DI" + hashtable["DI"].to_s %></i>
   
+  <h5><%= "Start: " + hashtable["Start"].to_s %></h5>
   <h5><%= "End: " + hashtable["End"].to_s %></h5>
 
   <h5>

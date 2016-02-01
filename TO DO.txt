@@ -2,14 +2,18 @@ TO DO
 -----
 PRIORITÄT:
 
+
+0	New appointment post route, DateTime ctor (instead of string concat
+)
+
 3	DateTime in DB ?
 
-2	Sign Up
+1	Sign Up
 	Sign In
 
 5	Styles.css
 
-1	New appointment (userid transfer)
+2 	Edit appointments
 
 4	Layout bei User
 
