@@ -3,9 +3,6 @@ TO DO
 PRIORITÄT:
 
 
-0	New appointment post route, DateTime ctor (instead of string concat
-)
-
 3	DateTime in DB ?
 
 1	Sign Up

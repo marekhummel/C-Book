@@ -1,13 +1,17 @@
 <!-- OVERVIEW OF THE USERS -->
-
 <p>Users:</p>
 
-<p><%= @useroverview %></p>   
+<table>
+  <tr><td>ID</td><td>Username</td><td>PWHash</td><td>Name</td><td>Surname</td><td>DateOfBirth</td></tr>
 
-<% for user in @useroverview %>
-  <a href=<%= "/users/" + user["ID"].to_s %> title="User">
-    <%= user["Name"] + " " + user["Surname"] %>
-  </a>
-  <br /><br />
-<% end %>
-
+  <% for user in @useroverview %>
+    <tr>
+      <td><%= user["ID"] %></td>
+      <td><%= user["Username"] %></td>
+      <td><%= user["PWHash"] %></td>
+      <td><%= user["Name"] %></td>
+      <td><%= user["Surname"] %></td>
+      <td><%= user["DateOfBirth"] %></td>
+    </tr>
+  <% end %>
+</table>

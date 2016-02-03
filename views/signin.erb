@@ -1,0 +1,16 @@
+<form action="/signin" method="post">
+	Username: <select name="username">
+		<% for user in @usernames %>
+			<option><%= user["Username"] %></option>
+		<% end %>
+	</select> 
+
+	Password: <select name="pw">
+		<% for user in @usernames %>
+			<option><%= user["PWHash"] %></option>
+		<% end %>
+	</select> 
+
+
+    <input type="submit" value="Sign In">
+</form>

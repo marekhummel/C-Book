@@ -1,37 +1,52 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
+
 require_relative "db/sql"
+require_relative "signin"
 
 
 @@backroute = "/"
 @@currentuserid = -1
 
 
+# Home
 get '/' do
+	@@backroute = "/"
 	erb :home
 end
 
 
-get '/useroverview' do
-	@useroverview = sql("SELECT ID, Name, Surname FROM User;")
 
+
+# Overview of all users (admin only)
+get '/useroverview' do
+	@useroverview = sql("SELECT * FROM User;")
+
+	@@backroute = "/"
   	erb :useroverview
 end
 
 
 
-
+# Overview of all appointments (admin only)
 get '/appointmentoverview' do
  	@appointmentoverview = sql("SELECT Appointment.Title, User.Name, User.Surname, Appointment.Start, Appointment.End " + 
  							   "FROM User, Appointment, UserAppointment " +
  							   "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID;")
 
+	@@backroute = "/"
  	erb :appointmentoverview	
 end
 
 
 
 
+
+
+
+
+
+# Personal overview for a signed in user
 get '/users/:id' do |id|
 	usersql = sql("SELECT Name, Surname FROM User WHERE ID = #{id};")[0]
 	@username = usersql["Name"] + " " + usersql["Surname"]
@@ -52,6 +67,8 @@ end
 
 
 
+
+# Add new appointment for the current user
 get '/users/:id/new' do
 	@userid = params[:id]
 	
@@ -60,13 +77,13 @@ get '/users/:id/new' do
 end
 
 
-
-post '/newappointment/' do
+# Add the new appointment
+post '/newappointment' do
 	#concat params
 	title = params[:title]
-	startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, params[:startsecs].to_i, 1).to_s
-	endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, params[:endsecs].to_i, 1).to_s
-	di = DateTime.now.to_i
+	startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, params[:startsecs].to_i).to_s
+	endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, params[:endsecs].to_i).to_s
+	di = Time.now.to_i
 
 	#Add appointment
 	sqlcmd = sql("INSERT INTO Appointment (Title, Start, End, DI) VALUES ('#{title}','#{startTime}','#{endTime}', '#{di}');")
