@@ -47,7 +47,7 @@ get '/users/:id' do |id|
 						"WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID;")
 
 	@@backroute = "/useroverview"
-	erb :user
+	erb :users
 end
 
 
@@ -55,7 +55,7 @@ end
 get '/users/:id/new' do
 	@userid = params[:id]
 	
-	@@backroute = "/useroverview"
+	@@backroute = "/users/#{@userid}"
 	erb :newappointment
 end
 
@@ -64,9 +64,9 @@ end
 post '/newappointment/' do
 	#concat params
 	title = params[:title]
-	startTime = params[:startmonth].to_s + "-" + params[:startday].to_s + "-" + params[:startyear].to_s + " " + params[:starthours].to_s + ":" + params[:startmins].to_s + ":" + params[:startsecs].to_s
-	endTime = params[:endmonth].to_s + "-" + params[:endday].to_s + "-" + params[:endyear].to_s + " " + params[:endhours].to_s + ":" + params[:endmins].to_s + ":" + params[:endsecs].to_s
-	di = Time.now.to_i
+	startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, params[:startsecs].to_i, 1).to_s
+	endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, params[:endsecs].to_i, 1).to_s
+	di = DateTime.now.to_i
 
 	#Add appointment
 	sqlcmd = sql("INSERT INTO Appointment (Title, Start, End, DI) VALUES ('#{title}','#{startTime}','#{endTime}', '#{di}');")
