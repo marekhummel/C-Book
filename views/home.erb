@@ -4,13 +4,11 @@
 <nav>
   <ul>
     <li><a href="/signup" title="Sign Up">Sign Up</a></li>
-    <li>
-	    <% if logged_in? then %>
-	        <%= current_user["Username"] %> <a href="/logout">Log Out</a>
-	     <% else %>
-	        <a href="/login">Log In</a>
-	    <% end %>
-    </li>
+    <% if !logged_in? then %>
+      <li>
+        <a href="/login">Log In</a>
+      </li>
+    <% end %>
   </ul>
 </nav>
 

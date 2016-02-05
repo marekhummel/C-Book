@@ -3,17 +3,14 @@ TO DO
 PRIORITÄT:
 
 
-3	DateTime in DB ?
-
-1	Sign Up
-	Sign In
-
-5	Styles.css
 
 2 	Edit appointments
 
-4	Layout bei User
+3 	Delete appointments
 
+4	DateTime in DB ?
+
+5	Styles.css
 
 
 

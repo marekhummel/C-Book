@@ -2,16 +2,16 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 
 require_relative "db/sql"
-require_relative "login"
+require_relative "login_signup"
+require_relative "helper"
+require_relative "sqlcmds"
 
 
-@@backroute = "/"
-@@currentuserid = -1
 
 
 # Home
 get '/' do
-	@@backroute = "/"
+	@backroute = "/"
 	erb :home
 end
 
@@ -22,7 +22,7 @@ end
 get '/useroverview' do
 	@useroverview = sql("SELECT * FROM User;")
 
-	@@backroute = "/"
+	@backroute = "/"
   	erb :useroverview
 end
 
@@ -34,7 +34,7 @@ get '/appointmentoverview' do
  							   "FROM User, Appointment, UserAppointment " +
  							   "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID;")
 
-	@@backroute = "/"
+	@backroute = "/"
  	erb :appointmentoverview	
 end
 
@@ -47,32 +47,29 @@ end
 
 
 # Personal overview for a signed in user
-get '/users/:id' do |id|
-	usersql = sql("SELECT Name, Surname FROM User WHERE ID = #{id};")[0]
+get '/overview' do
+	usersql = session[:current_user]
+	id = usersql["ID"].to_i
 	@username = usersql["Name"] + " " + usersql["Surname"]
-	@@currentuserid = id
 
-	@appointments = sql("SELECT Appointment.DI, Appointment.ID, Appointment.Title, User.Name, User.Surname, Appointment.Start, Appointment.End " + 
-						"FROM User, Appointment, UserAppointment " + 
-						"WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-						"AND User.ID = '#{id}';")
+	@appointments = query_appointments(id)
 
 	@contributors = sql("SELECT Appointment.ID, User.Name, User.Surname " +
 						"FROM User, Appointment, UserAppointment " + 
 						"WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID;")
 
-	@@backroute = "/useroverview"
-	erb :users
+	@backroute = "/overview"
+	erb :overview
 end
 
 
 
 
 # Add new appointment for the current user
-get '/users/:id/new' do
-	@userid = params[:id]
+get '/overview/new' do
+	@userid = current_user()["ID"]
 	
-	@@backroute = "/users/#{@userid}"
+	@backroute = "/overview"
 	erb :newappointment
 end
 
@@ -83,21 +80,11 @@ post '/newappointment' do
 	title = params[:title]
 	startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, params[:startsecs].to_i).to_s
 	endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, params[:endsecs].to_i).to_s
-	di = Time.now.to_i
 
 	#Add appointment
-	sqlcmd = sql("INSERT INTO Appointment (Title, Start, End, DI) VALUES ('#{title}','#{startTime}','#{endTime}', '#{di}');")
+	insert_appointment(title, startTime, endTime)
 
-	#Get Appointment ID
-	user_id = @@currentuserid
-	app_id = sql("SELECT ID From Appointment WHERE Appointment.DI = '#{di}';")[0]["ID"]
-
-
-	#Add userappointment
-	sqlcmd2 = sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{user_id}','#{app_id}');")
-
-
-	redirect to("/users/#{user_id}")
+	redirect to("/overview")
 end
 
 

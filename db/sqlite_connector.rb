@@ -23,18 +23,18 @@ require 'rubygems'
 #
 class String
   def colorize(color_code)
-    ; "\e[#{color_code}m#{self}\e[0m"
+    "\e[#{color_code}m#{self}\e[0m"
   end
 
-  def red;
+  def red
     colorize(31)
   end
 
-  def green;
+  def green
     colorize(32)
   end
 
-  def yellow;
+  def yellow
     colorize(33)
   end
 end

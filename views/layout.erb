@@ -1,16 +1,22 @@
 <!-- COMMON LAYOUT -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>C-Book</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header>
     <h1>C-Book</h1>
       <ul>
-        <li><a href=<%="" + @@backroute %> title="Home">Back</a></li>
+        <li><a href=<%= (@backroute == nil ? "/" : @backroute) %> title="Home">Back</a></li>
+        
+        <% if logged_in? then %>
+          <li>
+            <a href="/logout">Log Out</a> - Currently logged in: <%= current_user["Username"] %> 
+          </li>
+        <% end %>
       </ul>   
     <p>---------------------------------------------</p>
   </header>
