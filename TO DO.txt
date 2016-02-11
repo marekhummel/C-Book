@@ -12,8 +12,3 @@ PRIORITÄT:
 
 5	Styles.css
 
-
-
-New Appointment
-	- Start / End - DTP
-	- Conts: ComboBox

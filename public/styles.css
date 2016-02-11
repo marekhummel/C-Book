@@ -12,5 +12,5 @@ font: 13px/1.4 Helvetica, Arial, sans-serif;
 }
 
 .contributors { 
-	border:2px solid #ccc; width:250px; height: 100px; overflow-x: scroll; overflow-y: scroll; 
+	border:2px solid #ccc; width:250px; height: 100px; overflow-x: auto; overflow-y: auto; 
 }

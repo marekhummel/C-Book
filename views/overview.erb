@@ -1,35 +1,15 @@
 <!-- APPOINTMENTS OF ONE USER -->
 
+<a href=<%= "/appointment/new" %> title="New">New appointment</a>
+</br></br>
+
 <p>Appointments:</p>
-
-
 <p>-----------------------</p>
-<br /> <br /> <br />
-
-<a href=<%= "/overview/new" %> title="New">New appointment</a>
 
 <% for hashtable in @appointments %>
-  <% id = hashtable["ID"] %>
-  <% name = hashtable["Name"] + " " + hashtable["Surname"] %>
-  
-  <h3><%= "Title: " + hashtable["Title"].to_s %></h3>
-  <i> <%= "    -- ID: " + id.to_s %> </i>
-  
-  <h5><%= "Start: " + hashtable["Start"].to_s %></h5>
-  <h5><%= "End: " + hashtable["End"].to_s %></h5>
+  <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= "Title: " + hashtable["Title"].to_s %></a></br>
+  <b><%= "Start: " + hashtable["Start"].to_s %></b>
 
-  <h5>
-    <%= "Contributors: " %>
-    <% for cont in @contributors %>
-      <% if cont["ID"] == id %>
-        <i><%= cont["Name"] + " " + cont["Surname"] + ";" %></i>
-      <% end %>
-    <% end %>
-
-
-  </h5>
-  
-
-  <br /> <br />
+  </br></br>
 <% end %>
 

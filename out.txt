@@ -1,2 +1,0 @@
-cont-2: on
-cont-3: on

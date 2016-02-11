@@ -1,0 +1,16 @@
+<!-- EDIT APPOINTMENT -->
+
+  <% id = @appointment["ID"] %>
+  
+  <h3><%= "Title: " + @appointment["Title"].to_s %></h3>
+  <i> <%= "    -- ID: " + id.to_s %> </i>
+  
+  <h5><%= "Start: " + @appointment["Start"].to_s %></h5>
+  <h5><%= "End: " + @appointment["End"].to_s %></h5>
+
+  <h5>
+    <%= "Contributors: " %>
+    <% for cont in @contributors %>
+        <i><%= cont["Name"] + " " + cont["Surname"] + ";" %></i>
+    <% end %>
+  </h5>

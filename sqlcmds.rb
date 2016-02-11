@@ -27,7 +27,7 @@ end
 
 # **** APPOINTMENTS ****
 
-def query_appointments(userid)
+def query_appointments_of_user(userid)
 	sql("SELECT Appointment.ID, Appointment.Title, User.Name, User.Surname, Appointment.Start, Appointment.End " + 
 		"FROM User, Appointment, UserAppointment " + 
 		"WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
@@ -35,13 +35,33 @@ def query_appointments(userid)
 end
 
 
-def insert_appointment(title, start, finish)
+def query_appointment(userid, appid)
+	apps = sql("SELECT Appointment.ID, Appointment.Title, User.Name, User.Surname, Appointment.Start, Appointment.End " + 
+				"FROM User, Appointment, UserAppointment " + 
+				"WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
+				"AND User.ID = '#{userid}' AND Appointment.ID = '#{params[:id]}' " + 
+				"LIMIT 1;")
+
+	if apps.size != 1 then
+		return nil
+	else
+		return apps[0]
+	end
+end
+
+
+
+def insert_appointment(title, start, finish, contributors)
 	#Insert appointment
 	sql("INSERT INTO Appointment (Title, Start, End) VALUES ('#{title}','#{start}','#{finish}');")
 	
-	#Add userappointment
-	app_id = sql("SELECT * FROM Appointment ORDER BY ID DESC LIMIT 1;")[0]["ID"]
-	user_id = current_user()["ID"]
 
-	sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{user_id}','#{app_id}');")
+
+	#Get appointment id
+	app_id = sql("SELECT * FROM Appointment ORDER BY ID DESC LIMIT 1;")[0]["ID"]
+	
+	#Add all contributors
+	for id in contributors do
+		sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{id}','#{app_id}');")
+	end
 end
