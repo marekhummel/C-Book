@@ -24,6 +24,7 @@ end
 
 
 
+
 # **** APPOINTMENTS ****
 
 def query_appointments(userid)

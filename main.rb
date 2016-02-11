@@ -67,11 +67,12 @@ end
 
 # Add new appointment for the current user
 get '/overview/new' do
-	@userid = current_user()["ID"]
+	@otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != session[:current_user]["Username"]}
 	
 	@backroute = "/overview"
 	erb :newappointment
 end
+
 
 
 # Add the new appointment
@@ -83,6 +84,15 @@ post '/newappointment' do
 
 	#Add appointment
 	insert_appointment(title, startTime, endTime)
+
+	params.each { |p| 
+		key = p[0]
+		
+		if key.start_with?('cont-') then
+				
+
+		end
+	}
 
 	redirect to("/overview")
 end
