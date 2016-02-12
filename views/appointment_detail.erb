@@ -3,7 +3,7 @@
   <% id = @appointment["ID"] %>
   
   <h3><%= "Title: " + @appointment["Title"].to_s %></h3>
-  <i> <%= "    -- ID: " + id.to_s %> </i>
+  <i> <%= "    -- AppID: " + id.to_s %> </i>
   
   <h5><%= "Start: " + @appointment["Start"].to_s %></h5>
   <h5><%= "End: " + @appointment["End"].to_s %></h5>
@@ -14,3 +14,10 @@
         <i><%= cont["Name"] + " " + cont["Surname"] + ";" %></i>
     <% end %>
   </h5>
+
+
+<form action="/appointment_delete" method="post">
+  <input type="hidden" name="id" value=<%= id.to_s %> />
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete">
+</form>

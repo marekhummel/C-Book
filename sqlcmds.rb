@@ -42,11 +42,7 @@ def query_appointment(userid, appid)
 				"AND User.ID = '#{userid}' AND Appointment.ID = '#{params[:id]}' " + 
 				"LIMIT 1;")
 
-	if apps.size != 1 then
-		return nil
-	else
-		return apps[0]
-	end
+	return (apps.size == 1) ? apps[0] : nil
 end
 
 
@@ -56,7 +52,6 @@ def insert_appointment(title, start, finish, contributors)
 	sql("INSERT INTO Appointment (Title, Start, End) VALUES ('#{title}','#{start}','#{finish}');")
 	
 
-
 	#Get appointment id
 	app_id = sql("SELECT * FROM Appointment ORDER BY ID DESC LIMIT 1;")[0]["ID"]
 	
@@ -64,4 +59,14 @@ def insert_appointment(title, start, finish, contributors)
 	for id in contributors do
 		sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{id}','#{app_id}');")
 	end
+end
+
+
+
+def delete_appointment(id)
+	#Delete appointment
+	sql ("DELETE FROM Appointment WHERE ID =' #{id}';")
+
+	#Delete userappointments
+	sql ("DELETE FROM UserAppointment WHERE AppointmentID = '#{id}';")
 end

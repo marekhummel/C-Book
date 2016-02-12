@@ -2,19 +2,19 @@ enable :sessions
 set :session_secret, "ja ist mir eigentlich ziemlich latz"
 
 def password_hash(password)
-    BCrypt::Password.create(password).to_s
+    return BCrypt::Password.create(password).to_s
 end
 
 def valid_password?(password, hash)
-    BCrypt::Password.new(hash) == password
+    return BCrypt::Password.new(hash) == password
 end
 
 def current_user
-    session[:current_user]
+    return session[:current_user]
 end
 
 def logged_in?
-    current_user != nil
+    return current_user != nil
 end
 
 set(:login) do |required|

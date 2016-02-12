@@ -64,26 +64,6 @@ end
 
 
 
-# Open appointment for editing / deleting and a general better overview
-get '/appointment/:id' do
-	userid = session[:current_user]["ID"]
-	appid = params[:id]
-
-	@appointment = query_appointment(userid, appid)
-
-	@contributors = sql("SELECT User.Name, User.Surname " +
-						"FROM User, Appointment, UserAppointment " + 
-						"WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-						"AND Appointment.ID = '#{appid}';")
-
-
-	@backroute = "/overview"
-	erb :appointment_edit
-end
-
-
-
-
 
 
 
@@ -118,6 +98,42 @@ post '/appointment_new' do
 
 	#Add appointment
 	insert_appointment(title, startTime, endTime, conts)
+
+	#Redirect
+	redirect to("/overview")
+end
+
+
+
+
+
+
+# Open appointment for editing / deleting and a general better overview
+get '/appointment/:id' do
+	userid = session[:current_user]["ID"]
+	appid = params[:id]
+
+	@appointment = query_appointment(userid, appid)
+
+	@contributors = sql("SELECT User.Name, User.Surname " +
+						"FROM User, Appointment, UserAppointment " + 
+						"WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
+						"AND Appointment.ID = '#{appid}';")
+
+
+	@backroute = "/overview"
+	erb :appointment_detail
+end
+
+
+
+
+# Delete the selected appointment
+delete '/appointment_delete' do
+
+	#Delete
+	id = params[:id]
+	delete_appointment(id)
 
 	#Redirect
 	redirect to("/overview")
