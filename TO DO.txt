@@ -3,12 +3,11 @@ TO DO
 PRIORITÄT:
 
 
+- 	Validation !
 
-2 	Edit appointments
+- 	Edit appointments
 
-3 	Delete appointments
+-	DateTime in DB ?
 
-4	DateTime in DB ?
-
-5	Styles.css
+-	Styles.css
 

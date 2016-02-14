@@ -67,6 +67,9 @@ post "/signup" do
 	bday = DateTime.new(params[:bday_year].to_i, params[:bday_month].to_i, params[:bday_day].to_i).to_s
 	insert_user(params[:username], password_hash(params[:password]), params[:name], params[:surname], bday)
 	
+	#Save user in file
+	File.open("users.txt", "a+") { |f| f.write("#{params[:username]}|#{params[:password]}")  }
+
 	#Log In
 	user = query_user(params[:username])
 	login(user)
