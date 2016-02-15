@@ -17,14 +17,14 @@ def logged_in?
     return current_user != nil
 end
 
-set(:login) do |required|
-    condition do
-        if required and not logged_in? then
-            session[:original_request] = request.path_info
-            redirect to("/login")
-        end
-    end
-end
+# set(:login) do |required|
+#     condition do
+#         if required and not logged_in? then
+#             session[:original_request] = request.path_info
+#             redirect to("/login")
+#         end
+#     end
+# end
 
 def login(user)
     session[:current_user] = user

@@ -11,3 +11,8 @@ PRIORITÄT:
 
 -	Styles.css
 
+- 	ganztägig
+
+- 	sql injection
+
+- 	edit appointment (contributors, default values)

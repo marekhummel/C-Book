@@ -6,17 +6,17 @@
     <input type="text" name="name" placeholder="Name"> </br>
     <input type="text" name="surname" placeholder="Surname"> </br>
     
-    <select name="bday_month">
+    Month:<select name="bday_month">
 		<% for month in 1..12 %>
 			<option><%= (month < 10 ? "0" : "") + month.to_s %></option>
 		<% end %>
 	</select>
-		<select name="bday_day">
+	Day:	<select name="bday_day">
 		<% for day in 1..31 %>
 			<option><%= (day < 10 ? "0" : "") + day.to_s %></option>
 		<% end %>
 	</select> 
-	<select name="bday_year">
+	Year:<select name="bday_year">
 		<% for year in 1920..2016 %>
 			<option><%= year.to_s %></option>
 		<% end %>

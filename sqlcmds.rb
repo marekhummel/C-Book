@@ -70,3 +70,12 @@ def delete_appointment(id)
 	#Delete userappointments
 	sql ("DELETE FROM UserAppointment WHERE AppointmentID = '#{id}';")
 end
+
+
+def edit_appointment(id, title, start, finish, contributors)
+	#Edit appointment
+	sql("UPDATE Appointment SET Title='#{title}', Start='#{start}', End='#{finish}' WHERE ID='#{id}';" )
+
+	#Edit contributors
+
+end

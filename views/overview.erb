@@ -1,10 +1,10 @@
 <!-- APPOINTMENTS OF ONE USER -->
 
 <a href=<%= "/appointment/new" %> title="New">New appointment</a>
-</br></br>
+</br>---------------------------------------------</br>
 
 <p>Appointments:</p>
-<p>-----------------------</p>
+
 
 <% for hashtable in @appointments %>
   <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= "Title: " + hashtable["Title"].to_s %></a></br>

@@ -1,0 +1,58 @@
+<p>Edit Appointment</p>
+
+<form action="/appointment_edit" method="post">
+    
+    <p>Titel: <input type="text" name="title" value="<%= @title %>" > </p>
+
+
+    <% for line in ["start", "end"] %>
+    
+	    <p><%= line.capitalize %>
+
+	    	Month:<select name=<%= line + "month" %>>
+				<% for month in 1..12 %>
+			  		<option><%= (month < 10 ? "0" : "") + month.to_s %></option>
+				<% end %>
+			</select>
+			Day:<select name=<%= line + "day" %>>
+				<% for day in 1..31 %>
+			  		<option><%= (day < 10 ? "0" : "") + day.to_s %></option>
+				<% end %>
+			</select> 
+			Year:<select name=<%= line + "year" %> style="margin-right: 25px;" >
+				<% for year in 2000..2030 %>
+			  		<option><%= year.to_s %></option>
+				<% end %>
+			</select> 
+			Hour:<select name=<%= line + "hours" %>>
+				<% for hour in 0..23 %>
+			  		<option><%= (hour < 10 ? "0" : "") + hour.to_s %></option>
+				<% end %>
+			</select> 
+			Minute:<select name=<%= line + "mins" %>>
+				<% for min in 0..59 %>
+			  		<option><%= (min < 10 ? "0" : "") + min.to_s %></option>
+				<% end %>
+			</select> 
+			Second:<select name=<%= line + "secs" %>>
+				<% for sec in 0..59 %>
+			  		<option><%= (sec < 10 ? "0" : "") + sec.to_s %></option>
+				<% end %>
+			</select> 
+
+		</p>
+	<% end %>
+
+	<p>
+		Contributors: 
+		<div class="contributors">
+			<% for id in 0..(@otherusers.size-1) %>
+				<input name=<%="cont-" + @otherusers[id]["ID"].to_s%> type="checkbox" /><%= @otherusers[id]["Name"] + " " + @otherusers[id]["Surname"] %><br />
+			<% end %>
+		</div>
+	</p>
+
+	<input type="hidden" name="id" value=<%= @appid %>>
+	<input type="hidden" name="_method" value="put">
+    <input type="submit" value="Edit appointment">
+</form>

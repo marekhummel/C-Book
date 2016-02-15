@@ -128,12 +128,64 @@ end
 
 
 
+# Open appointment for editing / deleting and a general better overview
+get '/appointment/:id/edit' do
+
+	@otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != session[:current_user]["Username"]}
+	@title = sql("SELECT Title FROM Appointment WHERE ID='#{params[:id]}' LIMIT 1;")[0]["Title"]
+
+	@appid = params[:id]
+	@backroute = "/appointment/" + @appid
+
+	erb :appointment_edit
+end
+
+
+
+
+
 # Delete the selected appointment
 delete '/appointment_delete' do
 
 	#Delete
 	id = params[:id]
 	delete_appointment(id)
+
+	#Redirect
+	redirect to("/overview")
+end
+
+
+
+
+
+
+
+# Edit the selected appointment
+put '/appointment_edit' do
+
+	#Edit
+	id = params[:id]
+
+	#concat params
+	title = params[:title]
+	startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, params[:startsecs].to_i).to_s
+	endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, params[:endsecs].to_i).to_s
+
+	#Get all contributors
+	conts = [current_user()["ID"]]
+	for p in params do
+		key = p[0]
+
+		if key.start_with?('cont-') then
+			contid = key.split('-')[1].to_i
+			conts.push(contid)
+		end
+	end
+
+
+	#Update
+	edit_appointment(id, title, startTime, endTime, conts)
 
 	#Redirect
 	redirect to("/overview")
