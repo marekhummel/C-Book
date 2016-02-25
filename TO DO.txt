@@ -5,8 +5,6 @@ PRIORITÄT:
 
 - 	Validation !
 
-- 	Edit appointments
-
 -	DateTime in DB ?
 
 -	Styles.css
@@ -14,5 +12,7 @@ PRIORITÄT:
 - 	ganztägig
 
 - 	sql injection
+
+- 	account overview
 
 - 	edit appointment (contributors, default values)

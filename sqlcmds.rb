@@ -1,5 +1,6 @@
 # **** USERS ****
 
+
 def query_user(name)
 	benutzer = sql("SELECT * FROM User WHERE Username='" + name + "' LIMIT 1;")
 	if benutzer.size != 1 then
@@ -21,6 +22,14 @@ end
 def insert_user(username, hash, name, surname, bday)
 	sql("INSERT INTO User (Username, PWHash, Name, Surname, DateOfBirth) VALUES ('#{username}','#{hash}', '#{name}', '#{surname}', '#{bday}');")
 end
+
+
+
+
+
+#--------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
 
 
 
@@ -76,6 +85,13 @@ def edit_appointment(id, title, start, finish, contributors)
 	#Edit appointment
 	sql("UPDATE Appointment SET Title='#{title}', Start='#{start}', End='#{finish}' WHERE ID='#{id}';" )
 
-	#Edit contributors
 
+
+	#Edit contributors
+	sql ("DELETE FROM UserAppointment WHERE AppointmentID = '#{id}';")	#Delete current relations
+
+	for contid in contributors
+		#Add each cont indivdually
+		sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{contid}','#{id}');")
+	end
 end

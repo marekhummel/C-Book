@@ -54,7 +54,7 @@ end
 
 # Personal overview for a signed in user
 get '/overview' do
-	userid = session[:current_user]["ID"].to_i
+	userid = current_user()["ID"].to_i
 
 	@appointments = query_appointments_of_user(userid)
 
@@ -69,7 +69,7 @@ end
 
 # Add new appointment for the current user
 get '/appointment/new' do
-	@otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != session[:current_user]["Username"]}
+	@otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != current_user()["Username"]}
 	
 	@backroute = "/overview"
 	erb :appointment_new
@@ -131,8 +131,11 @@ end
 # Open appointment for editing / deleting and a general better overview
 get '/appointment/:id/edit' do
 
-	@otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != session[:current_user]["Username"]}
-	@title = sql("SELECT Title FROM Appointment WHERE ID='#{params[:id]}' LIMIT 1;")[0]["Title"]
+	@otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != current_user()["Username"]}
+	
+	@curr_app = sql("SELECT * FROM Appointment WHERE ID='#{params[:id]}' LIMIT 1;")[0]
+	@start = DateTime.iso8601(@curr_app["Start"])
+	@end = DateTime.iso8601(@curr_app["End"])
 
 	@appid = params[:id]
 	@backroute = "/appointment/" + @appid

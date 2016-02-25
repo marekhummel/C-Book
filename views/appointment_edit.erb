@@ -2,7 +2,7 @@
 
 <form action="/appointment_edit" method="post">
     
-    <p>Titel: <input type="text" name="title" value="<%= @title %>" > </p>
+    <p>Titel: <input type="text" name="title" value="<%= curr_app["title"] %>" > </p>
 
 
     <% for line in ["start", "end"] %>
