@@ -8,16 +8,43 @@
   </head>
   <body>
     <header>
+
+
+      <nav class="header">
+          <ul>
+
+            <div class="partoutside">
+              <p>.</p>
+              <t>.<t>
+            </div>
+
+            <div class="partinside">
+              <p>M&A &copy;2016</p>
+              <t>C-BOOK<t>
+            </div>
+
+            <div class="partoutside">
+              <p>.</p>
+              <t>.<t>
+            </div>
+
+          </ul>
+      </nav>
+
+
       <h1>C-Book</h1>
         <ul>
-          <li><a href=<%= (@backroute == nil ? "/" : @backroute) %> title="Home">Back</a></li>
+          <li><a href=<%= (@backroute == nil ? "/" : @backroute) %> title="Home">Zurück</a></li>
           
           <% if logged_in? then %>
             <li>
-              <a href="/logout">Log Out</a> - Currently logged in: <%= current_user["Username"] %> 
+              <a href="/logout">Abmelden</a> - Zurzeit angmeldet: <%= current_user["Username"] %> 
             </li>
           <% end %>
         </ul>   
+
+
+
       <p>---------------------------------------------</p>
     </header>
 

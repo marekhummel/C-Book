@@ -1,24 +1,50 @@
-h1 {
-  color: #309;
-  font: 40px/1 Cambria, serif;
+body {
+	background-image: url('images/background.jpeg');
 }
 
-h2 {
-	color: #309;
-	font: 12px/1 Cambria, serif;
+
+
+.header {
+	background-color: #DDD;
+	position: relative;
+	text-align: center;
+	margin: 0;
+	height: 40px;
+	font-family: 'Arial Black';
+} 
+
+
+.header .partoutside {
+	background-color: #006;
+	color: #006;
+	width: 33%;
+	float: left;
 }
 
-p{
-font: 16px/1.4 Calibri, sans-serif;
+.header .partinside {
+	background-color: #DDD;
+	width: 33%;
+	float: left;
 }
 
-section{
-font: 16px/1.4 Calibri, sans-serif;
+
+
+.header p {
+	text-align: left;
+	font-size: 10px;
+	margin-left: 10px;
 }
 
-b{
-	font: 16px/1.4 Calibri, sans-serif;
+
+.header t {
+	font-size: 40px ;
+	color: #006;
 }
+
+
+
+
+
 
 .contributors { 
 	border:2px solid #ccc; width:250px; height: 100px; overflow-x: auto; overflow-y: auto; 

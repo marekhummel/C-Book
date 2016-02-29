@@ -2,14 +2,14 @@
 
   <% id = @appointment["ID"] %>
   
-  <h3><%= "Title: " + @appointment["Title"].to_s %></h3>
+  <h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
   <i> <%= "    -- AppID: " + id.to_s %> </i>
   
-  <h5><%= "Start: " + @appointment["Start"].to_s %></h5>
-  <h5><%= "End: " + @appointment["End"].to_s %></h5>
+  <h5><%= "Beginn: " + @appointment["Start"].to_s %></h5>
+  <h5><%= "Ende: " + @appointment["End"].to_s %></h5>
 
   <h5>
-    <%= "Contributors: " %>
+    <%= "Teilnehmer: " %>
     <% for cont in @contributors %>
         <i><%= cont["Name"] + " " + cont["Surname"] + ";" %></i>
     <% end %>
@@ -19,9 +19,9 @@
 <form action="/appointment_delete" method="post">
   <input type="hidden" name="id" value=<%= id.to_s %> />
   <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete">
+  <input type="submit" value="Löschen">
 </form>
 
 <form action=<%= "/appointment/" + id.to_s + "/edit" %> method="get">
-  <input type="submit" value="Edit">
+  <input type="submit" value="Bearbeiten">
 </form>

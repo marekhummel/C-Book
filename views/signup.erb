@@ -1,27 +1,27 @@
 <form action="/signup" method="post">
-    <input type="text" name="username" placeholder="Username"> </br>
-    <input type="password" name="password" placeholder="Password"></br>
-    <input type="password" name="confirmation" placeholder="Password Confirmation"></br></br>
+    <input type="text" name="username" placeholder="Benutzername"> </br>
+    <input type="password" name="password" placeholder="Passwort"></br>
+    <input type="password" name="confirmation" placeholder="Passwort bestätigen"></br></br>
 
-    <input type="text" name="name" placeholder="Name"> </br>
-    <input type="text" name="surname" placeholder="Surname"> </br>
+    <input type="text" name="name" placeholder="Vorname"> </br>
+    <input type="text" name="surname" placeholder="Name"> </br>
     
-    Month:<select name="bday_month">
+    Monat:<select name="bday_month">
 		<% for month in 1..12 %>
 			<option><%= (month < 10 ? "0" : "") + month.to_s %></option>
 		<% end %>
 	</select>
-	Day:	<select name="bday_day">
+	Tag:	<select name="bday_day">
 		<% for day in 1..31 %>
 			<option><%= (day < 10 ? "0" : "") + day.to_s %></option>
 		<% end %>
 	</select> 
-	Year:<select name="bday_year">
+	Jahr:<select name="bday_year">
 		<% for year in 1920..2016 %>
 			<option><%= year.to_s %></option>
 		<% end %>
 	</select> </br></br>
 
 	
-    <input type="submit" value="Sign in">
+    <input type="submit" value="Registrieren">
 </form>

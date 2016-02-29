@@ -30,7 +30,3 @@ def logout
 end
 
 
-
-
-
-def 
