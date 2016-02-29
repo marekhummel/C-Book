@@ -4,42 +4,74 @@ body {
 
 
 
-.header {
-	background-color: #DDD;
-	position: relative;
-	text-align: center;
+/* NAVIGATION BAR 
+-------------------*/
+
+#navbar {
+	width: 100%;
+	height: 100px;
+
 	margin: 0;
-	height: 40px;
-	font-family: 'Arial Black';
-} 
+	padding: 0;
 
+    display: table;
 
-.header .partoutside {
-	background-color: #006;
-	color: #006;
-	width: 33%;
-	float: left;
-}
-
-.header .partinside {
-	background-color: #DDD;
-	width: 33%;
-	float: left;
+    border: 1px solid #000066;
 }
 
 
+#navbar li {
+    background-color: black;
+    
+    padding: 10px 0px;
 
-.header p {
-	text-align: left;
-	font-size: 10px;
-	margin-left: 10px;
+    width: 33%;
+    height: 100%;
+    display: table-cell;
+}
+
+#navbar .inside {
+	background:  silver;
+
+	font-family: 'Lato';
+    font-weight: bold;
+    font-size: 60px;
+    color: #000066;
+    text-align: center;
+    text-shadow: 2px 2px black;
 }
 
 
-.header t {
-	font-size: 40px ;
-	color: #006;
+
+#navbar .outside {
+    font-family: 'Lato';
+    font-size: 16px;
+    color: white;
+    text-align: right;
+
+    padding-right: 5px;
 }
+
+#navbar .left {
+	background: linear-gradient(to right,rgba(0,0,100,255) 85%, silver);
+}
+
+#navbar .right {
+	background: linear-gradient(to left,rgba(0,0,100,255) 85%, silver);
+}
+
+
+#navbar a {
+	color: white;
+	text-decoration: none;
+}
+
+#navbar a:hover {
+	text-decoration: underline;
+}
+
+
+
 
 
 
