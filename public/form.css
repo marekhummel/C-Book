@@ -1,0 +1,78 @@
+form {
+    overflow: hidden;
+}
+
+/* Authentication forms (login, signup) */
+form.auth {
+    width: 600px;
+    height: auto;
+
+    margin: 50px auto;
+    padding: 10px;
+
+    background-color: silver;
+    border: 2px solid black;
+}
+
+
+
+form.auth input {
+    float: left;
+    width: 40%;
+
+    margin: 6px 2px;
+    padding: 2px 5px;
+
+    background-color: #fffbf0;
+    border: 1px solid #000064;
+}
+
+
+form.auth label {
+    width: 40%;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    text-align: right;
+    line-height: 1.5;
+    float: left;
+}
+
+
+form.auth label::after {
+    content: ":";
+}
+
+
+form.auth select {
+    margin: 6px 2px;
+    padding: 2px 5px;
+
+    background-color: #fffbf0;
+    border: 1px solid #000064;
+
+    float: left;
+}
+
+
+
+form.auth button {
+    margin: 20px 6px 6px 0;
+    padding: 3px;
+    float: right;
+    width: 30%;
+    background-color: #000064;
+    border: 1px solid white;
+    color: white;
+}
+
+
+
+
+
+
+
+
+.contributors { 
+    border:2px solid #ccc; width:250px; height: 100px; overflow-x: auto; overflow-y: auto; 
+}

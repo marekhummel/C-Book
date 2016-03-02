@@ -26,7 +26,6 @@ end
 
 def logout
     session[:current_user] = nil
-    redirect to("/")
 end
 
 

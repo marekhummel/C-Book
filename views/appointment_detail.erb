@@ -1,27 +1,27 @@
-<!-- EDIT APPOINTMENT -->
+<!-- DETAILED APPOINTMENT -->
 
-  <% id = @appointment["ID"] %>
+<% id = @appointment["ID"] %>
   
-  <h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
-  <i> <%= "    -- AppID: " + id.to_s %> </i>
+<h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
+<i> <%= "    -- AppID: " + id.to_s %> </i>
   
-  <h5><%= "Beginn: " + @appointment["Start"].to_s %></h5>
-  <h5><%= "Ende: " + @appointment["End"].to_s %></h5>
+<h5><%= "Beginn: " + @appointment["Start"].to_s %></h5>
+<h5><%= "Ende: " + @appointment["End"].to_s %></h5>
 
-  <h5>
+<h5>
     <%= "Teilnehmer: " %>
     <% for cont in @contributors %>
-        <i><%= cont["Name"] + " " + cont["Surname"] + ";" %></i>
+        <i><%= get_fullname(cont) + ";" %> </i>
     <% end %>
-  </h5>
+</h5>
 
 
 <form action="/appointment_delete" method="post">
-  <input type="hidden" name="id" value=<%= id.to_s %> />
-  <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="Löschen">
+    <input type="hidden" name="id" value=<%= id.to_s %> />
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Löschen</button>
 </form>
 
 <form action=<%= "/appointment/" + id.to_s + "/edit" %> method="get">
-  <input type="submit" value="Bearbeiten">
+    <button type="submit">Bearbeiten</button>
 </form>

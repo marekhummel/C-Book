@@ -7,9 +7,23 @@
 
 
 <% for hashtable in @appointments %>
-  <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= "Titel: " + hashtable["Title"].to_s %></a></br>
-  <b><%= "Beginn: " + hashtable["Start"].to_s %></b>
+    <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= "Titel: " + hashtable["Title"].to_s %></a></br>
+    <b><%= "Beginn: " + hashtable["Start"].to_s %></b>
 
-  </br></br>
+    </br></br>
 <% end %>
 
+
+
+
+
+
+</br>---------------------</br>
+
+
+<% if is_admin?(current_user()) %>
+    <ul>
+        <li><a href="/useroverview" title="Useroverview">All Users</a></li>
+        <li><a href="/appointmentoverview" title="Overview">All Appointments</a></li>
+    </ul> 
+<% end %>

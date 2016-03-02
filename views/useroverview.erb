@@ -2,16 +2,15 @@
 <p>Users:</p>
 
 <table>
-  <tr><td>ID</td><td>Username</td><td>PWHash</td><td>Name</td><td>Surname</td><td>DateOfBirth</td></tr>
+    <tr><td>ID</td><td>Username</td><td>PWHash</td><td>Fullname</td><td>DateOfBirth</td></tr>
 
-  <% for user in @useroverview %>
-    <tr>
-      <td><%= user["ID"] %></td>
-      <td><%= user["Username"] %></td>
-      <td><%= user["PWHash"] %></td>
-      <td><%= user["Name"] %></td>
-      <td><%= user["Surname"] %></td>
-      <td><%= user["DateOfBirth"] %></td>
-    </tr>
-  <% end %>
+    <% for user in @useroverview %>
+        <tr>
+            <td><%= user["ID"] %></td>
+            <td><%= user["Username"] %></td>
+            <td><%= user["PWHash"] %></td>
+            <td><%= get_fullname(user) %></td>
+            <td><%= user["DateOfBirth"] %></td>
+        </tr>
+    <% end %>
 </table>

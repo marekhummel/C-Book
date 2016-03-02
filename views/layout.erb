@@ -2,41 +2,45 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>C-Book</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
-  </head>
-  <body>
 
-    <header>
-		<ul id="navbar">
-		  	<li class="outside left"></li>
-		  	<li class="inside">C-BOOK</li>
-		  	<li class="outside right">
-		  		<% if logged_in? then %>
-            		<a href="/logout">Abmelden</a> - Zurzeit angmeldet: <%= current_user["Username"] %> 
-        		<% else %>
-        			<a href="/login">Anmelden</a>
-        		<% end %>
-		 	</li>
-		</ul>  
+    <head>
+        <title>C-Book</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="/../header.css">
+        <link rel="stylesheet" type="text/css" href="/../form.css">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+    </head>
 
+    <body style="background-image: url('/../images/background.jpeg');">
 
+        <header>
+            <ul id="navbar">
+                <li class="outside left">
+                    <!-- Only show "back"-button if it is not refering to the current route -->
+                    <% if request.path_info() != @backroute %>
+                        <a href=<%= (@backroute == nil ? "/" : @backroute) %> title="Home">Zurück</a>  
+                    <% end %> 
+                </li>
 
+                <li class="inside">C-BOOK</li>
 
-      <ul>
-        <li><a href=<%= (@backroute == nil ? "/" : @backroute) %> title="Home">Zurück</a></li>
-      </ul>   
+                <li class="outside right">
+                    <!-- Show either login or logout anchor, if logged in show current user -->
+                    <% if logged_in? then %>
+                        <span style="margin-right: 60px;">Zurzeit angmeldet: <%= get_fullname(current_user()) %></span>
+                        <a href="/logout">Abmelden</a>
+                    <% else %>
+                        <a href="/login">Anmelden</a>
+                    <% end %>
+                </li>
+            </ul>  
 
+            <p>---------------------------------------------</p>
+        </header>
 
-
-      <p>---------------------------------------------</p>
-    </header>
-
-    <section>
-      <%= yield %>
-    </section>
-  </body>
+        <!-- the main body -->
+        <section>
+            <%= yield %>
+        </section>
+    </body>
 </html>
