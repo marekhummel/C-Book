@@ -1,11 +1,15 @@
+<!-- NEW APPOINTMENT -->
+
 <p>Ereignis erstellen</p>
 
 <form action="/appointment_new" method="post">
     
     <p>Titel: <input type="text" name="title" placeholder="Titel"></p>
 
-
+    <!-- Display of all comboboxes via a for loop -->
     <% for line in ["start", "end"] %>
+
+        <!-- Write "Beginn" or "Ende" at the begin depending on the current for-loop state -->
         <p><%= (line == "start" ? "Beginn" : "Ende") %></p>
 
         Monat:
@@ -51,6 +55,7 @@
         </select> 
     <% end %>
 
+    <!-- List all contributors -->
     <p>
         Teilnehmer: 
         <div class="contributors">
@@ -60,6 +65,6 @@
         </div>
     </p>
 
-
+    <!-- Submit button -->
     <input type="submit" value="Ereignis hinzufügen">
 </form>

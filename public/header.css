@@ -1,3 +1,4 @@
+/* The whole bar*/
 #navbar {
     width: 100%;
     height: 100px;
@@ -10,7 +11,7 @@
     border: 1px solid #000066;
 }
 
-
+/* One element in the bar*/
 #navbar li {
     background-color: black;
     
@@ -23,6 +24,7 @@
     line-height: 100%; 
 }
 
+/* The inner element */
 #navbar .inside {
     background:  silver;
 
@@ -37,7 +39,7 @@
 }
 
 
-
+/* The other elements*/
 #navbar .outside {
     font-family: 'Lato';
     font-size: 14px;
@@ -45,22 +47,23 @@
     vertical-align: bottom;
 }
 
+/* The left element*/
 #navbar .left {
     background: linear-gradient(to right, #000064 80%, silver);
     text-align: left;
     padding: 0px 0px 5px 5px;
 }
 
+/* The right element*/
 #navbar .right {
     background: linear-gradient(to left, #000064 80%, silver);
-
-
 
     text-align: right;
     padding: 0px 5px 5px 0px;
 }
 
 
+/* Links within the navbar*/
 #navbar a {
     color: white;
     text-decoration: none;

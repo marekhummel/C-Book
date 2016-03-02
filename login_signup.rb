@@ -1,12 +1,15 @@
+# LOGIN AND SIGNUP ROUTES
+
 require "bcrypt"
 
 
+# LOGIN 
 get '/login' do
     @backroute = "/"
     erb :login
 end
 
-
+# LOGIN POST
 post '/login' do
     username = params[:username]
     pw = params[:pw]
@@ -32,37 +35,31 @@ post '/login' do
 end
 
 
-
+# LOGOUT
 get "/logout" do
     logout()
 
-    redirect "/login"
+    redirect to("/login")
 end
 
 
 
-
-
-get "/signup" do
-    erb :signup
-end
-
-
+# SIGNUP POST
 post "/signup" do
     #Any field is empty
     if params[:username] == "" || params[:password] == "" || params[:name] == "" || params[:surname] == "" then
-        redirect to ("/signup")
+        redirect to ("/")
     end
 
     #Confirmation differs from password
     if params[:password] != params[:confirmation] then
-        redirect to("/signup")
+        redirect to("/")
     end
 
     #Username already exists
     user = query_user(params[:username])
     if user != nil then
-        redirect to("/signup")
+        redirect to("/")
     end
 
     #Insert user in db

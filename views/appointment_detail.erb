@@ -1,7 +1,9 @@
 <!-- DETAILED APPOINTMENT -->
 
+<!-- Local variable -->
 <% id = @appointment["ID"] %>
-  
+ 
+<!-- Overview -->
 <h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
 <i> <%= "    -- AppID: " + id.to_s %> </i>
   
@@ -16,12 +18,15 @@
 </h5>
 
 
+<!-- Delete button -->
 <form action="/appointment_delete" method="post">
     <input type="hidden" name="id" value=<%= id.to_s %> />
     <input type="hidden" name="_method" value="delete">
     <button type="submit">Löschen</button>
 </form>
 
+
+<!-- Edit button -->
 <form action=<%= "/appointment/" + id.to_s + "/edit" %> method="get">
     <button type="submit">Bearbeiten</button>
 </form>

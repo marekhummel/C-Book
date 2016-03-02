@@ -1,10 +1,13 @@
+# MAIN ROUTES, PROGRAMM START
+
+
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
-require_relative "db/sql"
-require_relative "login_signup"
-require_relative "helper"
-require_relative "sqlcmds"
+require_relative "db/sql"           # sql connector
+require_relative "login_signup"     # login / signup routes
+require_relative "helper"           # helper methods
+require_relative "sqlcmds"          # sql commands
 
 
 
@@ -52,7 +55,7 @@ end
 
 
 
-# Personal overview for a signed in user
+# Personal overview for a user
 get '/overview' do
     userid = current_user()["ID"].to_i
 

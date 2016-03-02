@@ -1,12 +1,15 @@
+<!-- EDIT APPOINTMENT -->
+
 <p>Ereignis bearbeiten</p>
 
 <form action="/appointment_edit" method="post">
     
     <p>Titel: <input type="text" name="title" value="<%= @curr_app["Title"] %>" > </p>
 
-
+    <!-- Display of all comboboxes via a for loop -->
     <% for line in ["start", "end"] %>
-    
+        
+        <!-- Write "Beginn" or "Ende" at the begin depending on the current for-loop state -->
         <p><%= (line == "start" ? "Beginn" : "Ende") %></p>
 
         Tag:
@@ -52,6 +55,7 @@
         </select> 
     <% end %>
 
+    <!-- List all contributors -->
     <p>
         Teilnehmer: 
         <div class="contributors">
@@ -61,7 +65,10 @@
         </div>
     </p>
 
+    <!-- Extra variables to be posted -->
     <input type="hidden" name="id" value=<%= @appid %>>
     <input type="hidden" name="_method" value="put">
+
+    <!--  Submit button -->
     <input type="submit" value="Ereignis bearbeiten">
 </form>

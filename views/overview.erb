@@ -1,12 +1,13 @@
-<!-- APPOINTMENTS OF ONE USER -->
+<!-- MAIN PAGE FOR A USER -->
 
 <a href=<%= "/appointment/new" %> title="New">Neues Ereignis</a>
-</br>---------------------</br>
+<p>---------------------</p>
+</br>
 
+<!-- List all appointments  -->
 <p>Ereignisse:</p>
-
-
 <% for hashtable in @appointments %>
+	<!-- Show Title and start time, anchor the title -->
     <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= "Titel: " + hashtable["Title"].to_s %></a></br>
     <b><%= "Beginn: " + hashtable["Start"].to_s %></b>
 
@@ -18,9 +19,10 @@
 
 
 
-</br>---------------------</br>
+<p>---------------------</p>
+</br>
 
-
+<!-- Show extra anchors if an admin is logged in -->
 <% if is_admin?(current_user()) %>
     <ul>
         <li><a href="/useroverview" title="Useroverview">All Users</a></li>
