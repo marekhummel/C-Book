@@ -139,6 +139,11 @@ get '/appointment/:id/edit' do
     @curr_app = sql("SELECT * FROM Appointment WHERE ID='#{params[:id]}' LIMIT 1;")[0]
     @start = DateTime.iso8601(@curr_app["Start"])
     @end = DateTime.iso8601(@curr_app["End"])
+    @contributors = sql("SELECT User.ID " +
+                        "FROM User, Appointment, UserAppointment " + 
+                        "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
+                        "AND Appointment.ID = '#{appid}';")
+
 
     @appid = params[:id]
     @backroute = "/appointment/" + @appid

@@ -60,7 +60,8 @@
         Teilnehmer: 
         <div class="contributors">
             <% for id in 0..(@otherusers.size-1) %>
-                <input name=<%="cont-" + @otherusers[id]["ID"].to_s%> type="checkbox" /><%= get_fullname(@otherusers[id]) %><br />
+                <% name = "cont-" + @otherusers[id]["ID"].to_s%>
+                <input name=<%= name %> type="checkbox" /><%= get_fullname(@otherusers[id]) %><br />
             <% end %>
         </div>
     </p>

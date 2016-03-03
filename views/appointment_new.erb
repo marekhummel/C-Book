@@ -12,13 +12,6 @@
         <!-- Write "Beginn" or "Ende" at the begin depending on the current for-loop state -->
         <p><%= (line == "start" ? "Beginn" : "Ende") %></p>
 
-        Monat:
-        <select name=<%= line + "month" %>>
-            <% for month in 1..12 %>
-                <option><%= (month < 10 ? "0" : "") + month.to_s %></option>
-            <% end %>
-        </select>
-        
         Tag:
         <select name=<%= line + "day" %>>
             <% for day in 1..31 %>
@@ -26,6 +19,13 @@
             <% end %>
         </select> 
 
+        Monat:
+        <select name=<%= line + "month" %>>
+            <% for month in 1..12 %>
+                <option><%= (month < 10 ? "0" : "") + month.to_s %></option>
+            <% end %>
+        </select>
+        
         Jahr:
         <select name=<%= line + "year" %> style="margin-right: 25px;" >
             <% for year in 2000..2030 %>
