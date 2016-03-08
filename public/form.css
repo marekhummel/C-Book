@@ -15,6 +15,20 @@ form.auth {
 }
 
 
+form.auth headline {
+    width: 100%;
+    margin: 10px 0px 20px 0px;
+
+    float: left;
+
+    text-align: center;
+    text-decoration: underline;
+    font-family: 'Lato';
+    color: #000064;
+    font-size: 20px;
+    text-shadow: 1px 1px black;
+}
+
 
 form.auth input {
     float: left;
@@ -44,12 +58,15 @@ form.auth label::after {
 }
 
 
-form.auth select {
+form.auth input.nud {
     margin: 6px 2px;
     padding: 2px 5px;
+    width: auto;
 
     background-color: #fffbf0;
     border: 1px solid #000064;
+
+    text-align: center;
 
     float: left;
 }

@@ -20,39 +20,27 @@
 <p>&nbsp;</p>
 <!-- Sign up form -->
 <form class="auth" action="/signup" method="post">
-
+    <headline>Registrieren</headline>
     <!-- Credentials -->
     <label>Benutzername</label> 
-    <input type="text" name="username">
+    <input type="text" name="username" autocomplete="off">
     <label>Passwort</label> 
-    <input type="password" name="password">
+    <input type="password" name="password" autocomplete="off">
     <label>Passwort bestätigen</label> 
-    <input type="password" name="confirmation"></br>
+    <input type="password" name="confirmation" autocomplete="off"></br>
+
 
     <!-- Fullname -->
     <label style="margin-top: 20px;">Vorname</label> 
-    <input style="margin-top: 20px;" type="text" name="name">
+    <input style="margin-top: 20px;" type="text" name="name" autocomplete="off">
     <label>Nachname</label> 
-    <input type="text" name="surname">
+    <input type="text" name="surname" autocomplete="off">
 
     <!-- Birthday -->
     <label style="margin-top: 20px;">Geburtstag</label>
-    <select style="margin-top: 20px;" name="bday_day">
-        <% for day in 1..31 %>
-            <option><%= (day < 10 ? "0" : "") + day.to_s %></option>
-        <% end %>
-    </select> 
-    <select style="margin-top: 20px;" name="bday_month">
-        <% for month in 1..12 %>
-            <option><%= (month < 10 ? "0" : "") + month.to_s %></option>
-        <% end %>
-    </select> 
-    <select style="margin-top: 20px;" name="bday_year">
-        <% for year in 1920..2016 %>
-            <option><%= year.to_s %></option>
-        <% end %>
-    </select> 
-
+    <input class="nud" style="margin-top: 20px;" name="bday_day" type="number" value="1" max="31" min="1" step="1"/>
+    <input class="nud" style="margin-top: 20px;" name="bday_month" type="number" value="1" max="12" min="1" step="1"/>
+    <input class="nud" style="margin-top: 20px;" name="bday_year" type="number" value="1920" max="2016" min="1920" step="1"/>
 
     <!-- Submit button -->
     <button type="submit">Registrieren</button>
