@@ -1,52 +1,63 @@
 <!-- HOMEPAGE -->
-<ul style="display: table;">
-
-    <li style="display: table-cell; vertical-align: middle;">
-        <img src="images/business.jpeg" alt="Weg :o" />
-    </li>
-
-    <!-- Sign up form -->
-    <li style="display: table-cell; vertical-align: middle;">
-        <form class="auth" action="/signup" method="post">
-
-            <!-- Credentials -->
-            <label>Benutzername</label> 
-            <input type="text" name="username">
-            <label>Passwort</label> 
-            <input type="password" name="password">
-            <label>Passwort bestätigen</label> 
-            <input type="password" name="confirmation"></br>
-
-            <!-- Fullname -->
-            <label>Vorname</label> 
-            <input type="text" name="name">
-            <label>Nachname</label> 
-            <input type="text" name="surname">
-
-            <!-- Birthday -->
-            <label>Geburtstag</label>
-            <select name="bday_day">
-                <% for day in 1..31 %>
-                    <option><%= (day < 10 ? "0" : "") + day.to_s %></option>
-                <% end %>
-            </select> 
-            <select name="bday_month">
-                <% for month in 1..12 %>
-                    <option><%= (month < 10 ? "0" : "") + month.to_s %></option>
-                <% end %>
-            </select> 
-            <select name="bday_year">
-                <% for year in 1920..2016 %>
-                    <option><%= year.to_s %></option>
-                <% end %>
-            </select> 
 
 
-            <!-- Submit button -->
-            <button type="submit">Registrieren</button>
-        </form>
-    </li>
 
-</ul>
+<div class="sidebar" id="left">
+    <img src="images/fun.jpeg" alt="Weg :o" style="transform: rotate(7deg);" />
+
+    <img src="images/business.jpeg" alt="Weg :o" style="transform: rotate(-4deg);" />
+</div>
+
+<div class="sidebar" id="right">
+    <img src="images/cafe.jpeg" alt="Weg :o" style="transform: rotate(-7deg);" />
+
+    <img src="images/breakfast.jpeg" alt="Weg :o" style="transform: rotate(12deg);" />
+</div>
+
+
+
+
+<p>&nbsp;</p>
+<!-- Sign up form -->
+<form class="auth" action="/signup" method="post">
+
+    <!-- Credentials -->
+    <label>Benutzername</label> 
+    <input type="text" name="username">
+    <label>Passwort</label> 
+    <input type="password" name="password">
+    <label>Passwort bestätigen</label> 
+    <input type="password" name="confirmation"></br>
+
+    <!-- Fullname -->
+    <label style="margin-top: 20px;">Vorname</label> 
+    <input style="margin-top: 20px;" type="text" name="name">
+    <label>Nachname</label> 
+    <input type="text" name="surname">
+
+    <!-- Birthday -->
+    <label style="margin-top: 20px;">Geburtstag</label>
+    <select style="margin-top: 20px;" name="bday_day">
+        <% for day in 1..31 %>
+            <option><%= (day < 10 ? "0" : "") + day.to_s %></option>
+        <% end %>
+    </select> 
+    <select style="margin-top: 20px;" name="bday_month">
+        <% for month in 1..12 %>
+            <option><%= (month < 10 ? "0" : "") + month.to_s %></option>
+        <% end %>
+    </select> 
+    <select style="margin-top: 20px;" name="bday_year">
+        <% for year in 1920..2016 %>
+            <option><%= year.to_s %></option>
+        <% end %>
+    </select> 
+
+
+    <!-- Submit button -->
+    <button type="submit">Registrieren</button>
+</form>
+
+
 
  

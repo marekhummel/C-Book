@@ -15,53 +15,125 @@
         Tag:
         <select name=<%= line + "day" %>>
             <% for day in 1..31 %>
-                <option><%= (day < 10 ? "0" : "") + day.to_s %></option>
+                <% text = (day < 10 ? "0" : "") + day.to_s %>
+                
+                <% if day == @times[line].Day %>
+                    <option selected>
+                <% else %>
+                    <option>
+                <% end %>
+
+                    <%= text %>
+                </option>
+
             <% end %>
         </select> 
 
         Monat:
         <select name=<%= line + "month" %>>
             <% for month in 1..12 %>
-                <option><%= (month < 10 ? "0" : "") + month.to_s %></option>
+                <% text = (month < 10 ? "0" : "") + month.to_s %>
+                
+                <% if month == @times[line].Month %>
+                    <option selected>
+                <% else %>
+                    <option>
+                <% end %>
+
+                    <%= text %>
+                </option>
+
             <% end %>
-        </select>
+        </select> 
 
         Jahr:
         <select name=<%= line + "year" %> style="margin-right: 25px;" >
             <% for year in 2000..2030 %>
-                <option><%= year.to_s %></option>
+                <% text = (year < 10 ? "0" : "") + year.to_s %>
+                
+                <% if year == @times[line].Year %>
+                    <option selected>
+                <% else %>
+                    <option>
+                <% end %>
+
+                    <%= text %>
+                </option>
+
             <% end %>
         </select> 
 
-         Stunde:
+        Stunde:
         <select name=<%= line + "hours" %>>
             <% for hour in 0..23 %>
-                <option><%= (hour < 10 ? "0" : "") + hour.to_s %></option>
+                <% text = (hour < 10 ? "0" : "") + hour.to_s %>
+                
+                <% if hour == @times[line].Hours %>
+                    <option selected>
+                <% else %>
+                    <option>
+                <% end %>
+
+                    <%= text %>
+                </option>
+
             <% end %>
         </select> 
 
         Minute:
         <select name=<%= line + "mins" %>>
             <% for min in 0..59 %>
-                <option><%= (min < 10 ? "0" : "") + min.to_s %></option>
+                <% text = (min < 10 ? "0" : "") + min.to_s %>
+                
+                <% if min == @times[line].Minutes %>
+                    <option selected>
+                <% else %>
+                    <option>
+                <% end %>
+
+                    <%= text %>
+                </option>
+
             <% end %>
         </select> 
 
         Sekunde:
         <select name=<%= line + "secs" %>>
-            <% for sec in 0..59 %>
-                <option><%= (sec < 10 ? "0" : "") + sec.to_s %></option>
+            <% for second in 0..59 %>
+                <% text = (second < 10 ? "0" : "") + second.to_s %>
+                
+                <% if second == @times[line].Seconds %>
+                    <option selected>
+                <% else %>
+                    <option>
+                <% end %>
+
+                    <%= text %>
+                </option>
+
             <% end %>
         </select> 
     <% end %>
+
+
+
+
+
 
     <!-- List all contributors -->
     <p>
         Teilnehmer: 
         <div class="contributors">
-            <% for id in 0..(@otherusers.size-1) %>
-                <% name = "cont-" + @otherusers[id]["ID"].to_s%>
-                <input name=<%= name %> type="checkbox" /><%= get_fullname(@otherusers[id]) %><br />
+            <% for user in @otherusers %>
+                <% name = "cont-" + user["ID"].to_s%>
+
+                <% if @contributors.any? { |u| u["ID"] == user["ID"]} %>
+                    <input name=<%= name %> type="checkbox" checked/>
+                <% else %>
+                    <input name=<%= name %> type="checkbox" />
+                <% end %>
+
+                <%= get_fullname(user) %><br />
             <% end %>
         </div>
     </p>
@@ -71,5 +143,5 @@
     <input type="hidden" name="_method" value="put">
 
     <!--  Submit button -->
-    <input type="submit" value="Ereignis bearbeiten">
+    <input type="submit" value="Speichern">
 </form>

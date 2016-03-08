@@ -8,6 +8,7 @@ require_relative "db/sql"           # sql connector
 require_relative "login_signup"     # login / signup routes
 require_relative "helper"           # helper methods
 require_relative "sqlcmds"          # sql commands
+require_relative "DateTime"         # extended datetime class
 
 
 
@@ -45,6 +46,15 @@ get '/appointmentoverview' do
 
     @backroute = "/"
     erb :appointmentoverview    
+end
+
+
+
+
+
+
+get '/account' do
+    erb :account
 end
 
 
@@ -133,16 +143,20 @@ end
 
 # Open appointment for editing / deleting and a general better overview
 get '/appointment/:id/edit' do
+    @appid = params[:id]
 
-    @otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != current_user()["Username"]}
-    
-    @curr_app = sql("SELECT * FROM Appointment WHERE ID='#{params[:id]}' LIMIT 1;")[0]
-    @start = DateTime.iso8601(@curr_app["Start"])
-    @end = DateTime.iso8601(@curr_app["End"])
+        
+    @curr_app = sql("SELECT * FROM Appointment WHERE ID='#{@appid}' LIMIT 1;")[0]
+
+    starttime = DateTime.iso8601(@curr_app["Start"])
+    endtime = DateTime.iso8601(@curr_app["End"])
+    @times = {"start" => starttime, "end" => endtime}
+
+    @otherusers = sql("SELECT ID, Username, Name, Surname FROM User WHERE Username != '#{current_user()["Username"]}';")
     @contributors = sql("SELECT User.ID " +
                         "FROM User, Appointment, UserAppointment " + 
                         "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-                        "AND Appointment.ID = '#{appid}';")
+                        "AND Appointment.ID = '#{@appid}';")
 
 
     @appid = params[:id]

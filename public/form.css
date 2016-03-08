@@ -10,7 +10,7 @@ form.auth {
     margin: 50px auto;
     padding: 10px;
 
-    background-color: silver;
+    background-color: rgba(192, 192, 192, 0.5);
     border: 2px solid black;
 }
 

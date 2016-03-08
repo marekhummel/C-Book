@@ -28,13 +28,20 @@
                 </li>
 
                 <!-- Center element -->
-                <li class="inside">C-BOOK</li>
+                <li class="inside">
+                    <span style="white-space: nowrap;">
+                        C-BOOK
+                    </span>
+                </li>
 
                 <!-- center element -->
                 <li class="outside right">
                     <!-- Show either login or logout anchor, if logged in show current user -->
                     <% if logged_in? then %>
-                        <span style="margin-right: 60px;">Zurzeit angmeldet: <%= get_fullname(current_user()) %></span>
+                        <span style="margin-right: 60px;">
+                            Zurzeit angmeldet: 
+                            <a href="/account"><%= get_fullname(current_user()) %></a>
+                        </span>
                         <a href="/logout">Abmelden</a>
                     <% else %>
                         <a href="/login">Anmelden</a>
@@ -44,7 +51,7 @@
         </header>
 
         <!-- the main body -->
-        <section>
+        <section style="padding-top: 40px;">
             <%= yield %>
         </section>
     </body>
