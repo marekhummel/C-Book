@@ -1,0 +1,64 @@
+.headline {
+	font-size: 25px;
+	text-decoration: underline;
+	text-align: center;
+
+	margin: 0px auto 20px auto;
+}
+
+/* The whole div, containing the list of appointments*/
+.agenda {
+	position: relative;
+	
+	margin: 0px auto;
+	padding: 0px;
+
+	width: 600px;
+    height: 400px;
+
+
+    background-color: rgba(192, 192, 192, 0.5);
+    border: 2px solid black;
+
+    overflow-y: auto;
+}
+
+
+
+/* One appointment as div*/
+.agenda .appointment {
+	margin: 10px 10px;
+	padding: 10px 0px 10px 40px;
+}
+
+/* Hovering one appointment*/
+.agenda div:hover {
+	background-color: rgba(50, 50, 50, 0.3);
+
+	border: 1px solid black;
+	padding: 9px 0px 9px 39px;
+}
+
+
+/* The title in one appointment*/
+.agenda .appointment p {
+	font-size: 19px;
+	margin: 0px;
+	text-decoration: none;
+	color: #000064;
+}
+
+
+/* The description in one appointment*/
+.agenda .appointment span {
+	font-size: 15px;
+	margin-left: 20px;
+}
+
+/* The horizontal line */
+.agenda hr {
+	margin: 0px 20px;
+    height: 2px; 
+    color: #000064;
+    background: #000064;
+}

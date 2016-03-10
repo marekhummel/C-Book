@@ -1,29 +1,28 @@
 <!-- MAIN PAGE FOR A USER -->
 
 <a href=<%= "/appointment/new" %> title="New">Neues Ereignis</a>
-<p>---------------------</p>
-</br>
+
+
 
 <!-- List all appointments  -->
+<p class="headline">Ereignisse</p>
+
 <div class="agenda">
-	<span class="headline">Ereignisse</span>
-	<% for hashtable in @appointments %>
+	<% for i in (0..@appointments.size-1) %>
+		<% hashtable = @appointments[i] %>
 		<!-- Show Title and start time, anchor the title -->
-		<div class="appointment">
-		    <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= hashtable["Title"].to_s %></a>
-		</br>
-		    <span><%= "Beginn: " + DateTime.iso8601(hashtable["Start"]).Format %></span>
+		<div class="appointment" style="cursor: pointer;" onclick="window.location='/appointment/<%= hashtable["ID"].to_s %>'";>
+		    <p><%= hashtable["Title"].to_s %></p>
+		    <span><%= "Beginn: " + DateTime.iso8601(hashtable["Start"]).Format! %></span>
 	    </div>
-	    
+
+	    <% if i != @appointments.size - 1 %>
+			<hr>
+		<% end %>
 	<% end %>
 </div>
 
 
-
-
-
-<p>---------------------</p>
-</br>
 
 <!-- Show extra anchors if an admin is logged in -->
 <% if is_admin?(current_user()) %>

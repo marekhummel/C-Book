@@ -8,8 +8,8 @@
 <i> <%= "    -- AppID: " + id.to_s %> </i>
   
 
-<h5><%= "Beginn: " + DateTime.iso8601(@appointment["Start"]).Format %></h5>
-<h5><%= "Ende: " + DateTime.iso8601(@appointment["End"]).Format %></h5>
+<h5><%= "Beginn: " + DateTime.iso8601(@appointment["Start"]).Format! %></h5>
+<h5><%= "Ende: " + DateTime.iso8601(@appointment["End"]).Format! %></h5>
 
 <h5>
     <%= "Teilnehmer: " %>

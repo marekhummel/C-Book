@@ -34,7 +34,7 @@ form.auth input {
     float: left;
     width: 40%;
 
-    margin: 6px 2px;
+    margin: 6px 0px;
     padding: 2px 5px;
 
     background-color: #fffbf0;
@@ -59,8 +59,8 @@ form.auth label::after {
 
 
 form.auth input.nud {
-    margin: 6px 2px;
-    padding: 2px 5px;
+    margin: 6px 5% 6px 0px;
+    padding: 2px 1px;
     width: 10%;
 
     background-color: #fffbf0;
