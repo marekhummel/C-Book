@@ -61,7 +61,7 @@ form.auth label::after {
 form.auth input.nud {
     margin: 6px 2px;
     padding: 2px 5px;
-    width: auto;
+    width: 10%;
 
     background-color: #fffbf0;
     border: 1px solid #000064;

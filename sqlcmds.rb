@@ -48,7 +48,8 @@ def query_appointments_of_user(userid)
     sql("SELECT Appointment.ID, Appointment.Title, User.Name, User.Surname, Appointment.Start, Appointment.End " + 
         "FROM User, Appointment, UserAppointment " + 
         "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-        "AND User.ID = '#{userid}';")
+        "AND User.ID = '#{userid}'" +
+        "ORDER BY Appointment.Start;")
 end
 
 

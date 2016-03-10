@@ -16,3 +16,13 @@ PRIORITÄT:
 - 	account overview
 
 - 	edit appointment (contributors, default values)
+
+
+
+
+
+
+
+
+-	Ereignisse chronologisch
+-	vergangene Ereignisse färben

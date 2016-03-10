@@ -7,8 +7,9 @@
 <h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
 <i> <%= "    -- AppID: " + id.to_s %> </i>
   
-<h5><%= "Beginn: " + @appointment["Start"].to_s %></h5>
-<h5><%= "Ende: " + @appointment["End"].to_s %></h5>
+
+<h5><%= "Beginn: " + DateTime.iso8601(@appointment["Start"]).Format %></h5>
+<h5><%= "Ende: " + DateTime.iso8601(@appointment["End"]).Format %></h5>
 
 <h5>
     <%= "Teilnehmer: " %>

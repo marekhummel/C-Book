@@ -26,4 +26,7 @@ class DateTime
         self.strftime("%S").to_i
     end
 
+    def Format
+        self.strftime("%d. %m. %Y - %H:%M:%S")
+    end
 end 

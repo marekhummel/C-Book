@@ -5,15 +5,18 @@
 </br>
 
 <!-- List all appointments  -->
-<p>Ereignisse:</p>
-<% for hashtable in @appointments %>
-	<!-- Show Title and start time, anchor the title -->
-    <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= "Titel: " + hashtable["Title"].to_s %></a></br>
-    <b><%= "Beginn: " + hashtable["Start"].to_s %></b>
-
-    </br></br>
-<% end %>
-
+<div class="agenda">
+	<span class="headline">Ereignisse</span>
+	<% for hashtable in @appointments %>
+		<!-- Show Title and start time, anchor the title -->
+		<div class="appointment">
+		    <a href=<%= "/appointment/" + hashtable["ID"].to_s %>><%= hashtable["Title"].to_s %></a>
+		</br>
+		    <span><%= "Beginn: " + DateTime.iso8601(hashtable["Start"]).Format %></span>
+	    </div>
+	    
+	<% end %>
+</div>
 
 
 

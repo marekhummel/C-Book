@@ -1,0 +1,46 @@
+.agenda {
+	position: relative;
+	
+	margin: 0px auto;
+
+	width: 300px;
+    height: auto;
+
+    margin: 0px auto;
+    padding: 10px;
+
+    background-color: rgba(192, 192, 192, 0.5);
+    border: 2px solid black;
+}
+
+
+.agenda .headline {
+	font-size: 25px;
+	text-decoration: underline;
+	text-align: center;
+
+	margin-bottom: 30px;
+}
+
+
+.agenda .appointment {
+	margin-bottom: 25px;
+}
+
+
+.agenda .appointment a {
+	font-size: 19px;
+	text-decoration: none;
+	color: #000064;
+}
+
+
+.agenda .appointment a:hover {
+	text-decoration: underline;
+	font-style: italic;
+}
+
+.agenda .appointment span {
+	font-size: 15px;
+	margin-left: 20px;
+}
