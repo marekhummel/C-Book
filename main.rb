@@ -162,6 +162,7 @@ get '/appointment/:id/edit' do
     @appid = params[:id]
     @backroute = "/appointment/" + @appid
 
+    #erb :test
     erb :appointment_edit
 end
 

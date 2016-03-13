@@ -1,86 +1,78 @@
 <!-- EDIT APPOINTMENT -->
 
-<p>Ereignis bearbeiten</p>
 
-<form action="/appointment_edit" method="post">
-    
-    <p>Titel: <input type="text" name="title" value="<%= @curr_app["Title"] %>" > </p>
+
+<form class="app" action="/appointment_edit" method="post">
+    <headline>Ereignis bearbeiten</headline>
+
+    <label>Titel</label> 
+    <input type="text" name="title" value="<%= @curr_app["Title"] %>" >
+
 
     <!-- Display of all comboboxes via a for loop -->
     <% for line in ["start", "end"] %>
         
         <!-- Write "Beginn" or "Ende" at the begin depending on the current for-loop state -->
-        <p><%= (line == "start" ? "Beginn" : "Ende") %></p>
+        <label><%= (line == "start" ? "Beginn" : "Ende") %></label>
 
-        Tag:
+        <label>Tag</label>
         <select name=<%= line + "day" %>>
             <% for day in 1..31 %>
                 <% text = (day < 10 ? "0" : "") + day.to_s %>
                 
                 <% if day == @times[line].Day %>
-                    <option selected>
+                    <option selected><%= text %></option>
                 <% else %>
-                    <option>
+                    <option><%= text %></option>
                 <% end %>
-
-                    <%= text %>
-                </option>
 
             <% end %>
         </select> 
+        
 
-        Monat:
+        <label>Monat</label>
         <select name=<%= line + "month" %>>
             <% for month in 1..12 %>
                 <% text = (month < 10 ? "0" : "") + month.to_s %>
                 
                 <% if month == @times[line].Month %>
-                    <option selected>
+                    <option selected><%= text %></option>
                 <% else %>
-                    <option>
+                    <option><%= text %></option>
                 <% end %>
-
-                    <%= text %>
-                </option>
 
             <% end %>
         </select> 
 
-        Jahr:
+        <label>Jahr</label>
         <select name=<%= line + "year" %> style="margin-right: 25px;" >
             <% for year in 2000..2030 %>
                 <% text = (year < 10 ? "0" : "") + year.to_s %>
                 
                 <% if year == @times[line].Year %>
-                    <option selected>
+                    <option selected><%= text %></option>
                 <% else %>
-                    <option>
+                    <option><%= text %></option>
                 <% end %>
-
-                    <%= text %>
-                </option>
 
             <% end %>
         </select> 
 
-        Stunde:
+        <label>Stunde</label>
         <select name=<%= line + "hours" %>>
             <% for hour in 0..23 %>
                 <% text = (hour < 10 ? "0" : "") + hour.to_s %>
                 
                 <% if hour == @times[line].Hours %>
-                    <option selected>
+                    <option selected><%= text %></option>
                 <% else %>
-                    <option>
+                    <option><%= text %></option>
                 <% end %>
-
-                    <%= text %>
-                </option>
 
             <% end %>
         </select> 
 
-        Minute:
+        <label>Minute</label>
         <select name=<%= line + "mins" %>>
             <% for min in 0..59 %>
                 <% text = (min < 10 ? "0" : "") + min.to_s %>
@@ -97,19 +89,16 @@
             <% end %>
         </select> 
 
-        Sekunde:
+        <label>Sekunde</label>
         <select name=<%= line + "secs" %>>
             <% for second in 0..59 %>
                 <% text = (second < 10 ? "0" : "") + second.to_s %>
                 
                 <% if second == @times[line].Seconds %>
-                    <option selected>
+                    <option selected><%= text %></option>
                 <% else %>
-                    <option>
+                    <option><%= text %></option>
                 <% end %>
-
-                    <%= text %>
-                </option>
 
             <% end %>
         </select> 

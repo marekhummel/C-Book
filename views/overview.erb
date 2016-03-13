@@ -1,17 +1,14 @@
 <!-- MAIN PAGE FOR A USER -->
 
-<a href=<%= "/appointment/new" %> title="New">Neues Ereignis</a>
-
-
 
 <!-- List all appointments  -->
-<p class="headline">Ereignisse</p>
+<p class="headline">Agenda</p>
 
 <div class="agenda">
 	<% for i in (0..@appointments.size-1) %>
 		<% hashtable = @appointments[i] %>
 		<!-- Show Title and start time, anchor the title -->
-		<div class="appointment" style="cursor: pointer;" onclick="window.location='/appointment/<%= hashtable["ID"].to_s %>'";>
+		<div class="appointment" onclick="window.location='/appointment/<%= hashtable["ID"].to_s %>'";>
 		    <p><%= hashtable["Title"].to_s %></p>
 		    <span><%= "Beginn: " + DateTime.iso8601(hashtable["Start"]).Format! %></span>
 	    </div>
@@ -20,6 +17,11 @@
 			<hr>
 		<% end %>
 	<% end %>
+</div>
+
+
+<div class="newappointment" onclick="window.location='/appointment/new'" title="New">
+	Neues Ereignis
 </div>
 
 
