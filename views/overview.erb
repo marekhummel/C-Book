@@ -4,8 +4,8 @@
 <!-- List all appointments  -->
 <p class="headline">Agenda</p>
 
-<div class="agenda">
-	<% for i in (0..@appointments.size-1) %>
+<div class="container">
+	<% for i in 0..(@appointments.size-1) %>
 		<% hashtable = @appointments[i] %>
 		<!-- Show Title and start time, anchor the title -->
 		<div class="appointment" onclick="window.location='/appointment/<%= hashtable["ID"].to_s %>'";>
@@ -23,13 +23,3 @@
 <div class="newappointment" onclick="window.location='/appointment/new'" title="New">
 	Neues Ereignis
 </div>
-
-
-
-<!-- Show extra anchors if an admin is logged in -->
-<% if is_admin?(current_user()) %>
-    <ul>
-        <li><a href="/useroverview" title="Useroverview">All Users</a></li>
-        <li><a href="/appointmentoverview" title="Overview">All Appointments</a></li>
-    </ul> 
-<% end %>

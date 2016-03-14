@@ -3,6 +3,12 @@ TO DO
 PRIORITÄT:
 
 
+Button hover
 
+Contributors, creator is highlighted
 
-APPOINTMENT EDIT <-> NEW
+Replace users name with "you" or sth
+
+App new / edit, margin between nuds
+
+ARE U SURE - http://www.w3schools.com/js/js_popup.asp

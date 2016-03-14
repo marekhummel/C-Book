@@ -1,6 +1,7 @@
 # **** USERS ****
 
 
+# Returns a user by name
 def query_user(name)
     user = sql("SELECT * FROM User WHERE Username='" + name + "' LIMIT 1;")
     if user.size != 1 then
@@ -10,25 +11,20 @@ def query_user(name)
     end
 end
 
-def query_user_by_id(id)
-    user = sql("SELECT * FROM User WHERE ID='" + id.to_s + "' LIMIT 1;")
-    if user.size != 1 then
-        return nil
-    else
-        return user[0]
-    end
-end
 
+
+# Inserts a new user in the database
 def insert_user(username, hash, name, surname, bday)
     return sql("INSERT INTO User (Username, PWHash, Name, Surname, DateOfBirth, IsAdmin) VALUES ('#{username}','#{hash}', '#{name}', '#{surname}', '#{bday}', '0');")
 end
 
 
-
+# Returns the full name of an user
 def get_fullname(user)
     return user["Name"] + " " + user["Surname"]
 end
 
+# Checks whether the given user is an admin
 def is_admin?(user)
     return user["IsAdmin"] != 0
 end
@@ -44,6 +40,7 @@ end
 
 # **** APPOINTMENTS ****
 
+# Returns all appointments of an user
 def query_appointments_of_user(userid)
     sql("SELECT Appointment.ID, Appointment.Title, User.Name, User.Surname, Appointment.Start, Appointment.End " + 
         "FROM User, Appointment, UserAppointment " + 
@@ -53,23 +50,24 @@ def query_appointments_of_user(userid)
 end
 
 
-def query_appointment(userid, appid)
-    apps = sql("SELECT Appointment.ID, Appointment.Title, User.Name, User.Surname, Appointment.Start, Appointment.End " + 
-                "FROM User, Appointment, UserAppointment " + 
-                "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-                "AND User.ID = '#{userid}' AND Appointment.ID = '#{params[:id]}' " + 
-                "LIMIT 1;")
+# Returns the appointment of the given appid
+def query_appointment(appid)
+    apps = sql("SELECT Appointment.ID, Appointment.Title, Appointment.Start, Appointment.End " + 
+               "FROM User, Appointment, UserAppointment " + 
+               "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
+               "AND Appointment.ID = '#{appid}' " + 
+               "LIMIT 1;")
 
     return (apps.size == 1) ? apps[0] : nil
 end
 
 
+# Creates a new appointment by adding the required data to the database
+def insert_appointment(title, start, finish, creator, contributors)
 
-def insert_appointment(title, start, finish, contributors)
     #Insert appointment
     sql("INSERT INTO Appointment (Title, Start, End) VALUES ('#{title}','#{start}','#{finish}');")
     
-
     #Get appointment id
     app_id = sql("SELECT * FROM Appointment ORDER BY ID DESC LIMIT 1;")[0]["ID"]
     
@@ -77,10 +75,19 @@ def insert_appointment(title, start, finish, contributors)
     for id in contributors do
         sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{id}','#{app_id}');")
     end
+    sql("INSERT INTO UserAppointment (UserID, AppointmentID, UserIsCreator) VALUES ('#{creator}','#{app_id}'), '1';")
+
+end
+
+
+# Removes a user as a contributor from an appointment
+def unsubscribe_user_from_appointment(userid, appid) 
+    sql ("DELETE FROM UserAppointment WHERE UserID = '#{userid}' AND AppointmentID = '#{appid}';")
 end
 
 
 
+# Deletes an appointment
 def delete_appointment(id)
     #Delete appointment
     sql ("DELETE FROM Appointment WHERE ID =' #{id}';")
@@ -90,11 +97,11 @@ def delete_appointment(id)
 end
 
 
+# Updates an appointment
 def edit_appointment(id, title, start, finish, contributors)
+
     #Edit appointment
     sql("UPDATE Appointment SET Title='#{title}', Start='#{start}', End='#{finish}' WHERE ID='#{id}';" )
-
-
 
     #Edit contributors
     sql ("DELETE FROM UserAppointment WHERE AppointmentID = '#{id}';")  #Delete current relations
@@ -103,4 +110,10 @@ def edit_appointment(id, title, start, finish, contributors)
         #Add each cont indivdually
         sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{contid}','#{id}');")
     end
+end
+
+
+# Returns a pseudo appointment
+def create_empty_appointment()
+    return  {"Title" => "", "Start" => DateTime.now, "End" => DateTime.now}
 end

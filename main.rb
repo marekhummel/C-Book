@@ -52,7 +52,7 @@ end
 
 
 
-
+# Account settings
 get '/account' do
     erb :account
 end
@@ -62,6 +62,17 @@ end
 
 
 
+
+
+
+
+
+
+
+
+# *****************
+# ***  OVERVIEW ***
+# ***************** 
 
 
 
@@ -80,28 +91,37 @@ end
 
 
 
+
+
+
+
+
+
+
+
+# ************************
+# ***  APPOINTMENT NEW ***
+# ************************ 
+
+
+
 # Add new appointment for the current user
 get '/appointment/new' do
  
-    @backroute = "/overview"
+    # Get an empty appointment
+    @app = create_empty_appointment()
 
-
-    @curr_app = {"Title" => "", "Start" => "", "End" => ""}
-
-    @starttime = DateTime.now
-    @endtime = DateTime.now
-
+    #Get the other users
     @otherusers = sql("SELECT ID, Username, Name, Surname FROM User WHERE Username != '#{current_user()["Username"]}';")
-    @contributors = sql("SELECT User.ID " +
-                        "FROM User, Appointment, UserAppointment " + 
-                        "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-                        "AND Appointment.ID = '#{@appid}';")
+    @contributors = []
 
+    #Set necessary vars
+    @headline = "Neues Ereignis"
+    @action = "/appointment_new"
+    @method = "post"
 
 
     @backroute = "/overview"
-
-
     erb :appointment_edit
 end
 
@@ -116,12 +136,13 @@ post '/appointment_new' do
 
 
     #Get all contributors
-    conts = [current_user()["ID"]]
+    conts = []
     for p in params do
         key = p[0]
 
+        #Only the params starting with "cont-"
         if key.start_with?('cont-') then
-            contid = key.split('-')[1].to_i
+            contid = key.split('-')[1].to_i     #take the second half of the string, indicating the id of the contributor
             conts.push(contid)
         end
     end
@@ -138,18 +159,40 @@ end
 
 
 
+
+
+
+
+
+
+
+
+
+
+# ***************************
+# ***  APPOINTMENT DETAIL ***
+# *************************** 
+
+
+
+
 # Open appointment for editing / deleting and a general better overview
 get '/appointment/:id' do
-    userid = session[:current_user]["ID"]
+    userid = current_user()["ID"]
     appid = params[:id]
 
-    @appointment = query_appointment(userid, appid)
+    @appointment = query_appointment(appid)
+
+    # Stop if this appointment doesn't exist
+    return if @appointment == nil
 
     @contributors = sql("SELECT User.Name, User.Surname " +
                         "FROM User, Appointment, UserAppointment " + 
                         "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
                         "AND Appointment.ID = '#{appid}';")
 
+    ua = sql("SELECT * FROM UserAppointment WHERE UserID = '#{userid}' AND AppointmentID = '#{appid}';")
+    @user_is_creator = (ua[0]["UserIsCreator"] != 0) 
 
     @backroute = "/overview"
     erb :appointment_detail
@@ -158,31 +201,45 @@ end
 
 
 
+
+
+
+
+
+
+# *************************
+# ***  APPOINTMENT EDIT ***
+# ************************* 
+
+
 # Open appointment for editing / deleting and a general better overview
 get '/appointment/:id/edit' do
-    appid = params[:id]
+    @appid = params[:id]
 
-        
-    @curr_app = sql("SELECT * FROM Appointment WHERE ID='#{appid}' LIMIT 1;")[0]
+    
+    # Get appointment
+    @app = sql("SELECT * FROM Appointment WHERE ID='#{@appid}' LIMIT 1;")[0]
+    @app["Start"] = DateTime.iso8601(@app["Start"])
+    @app["End"] = DateTime.iso8601(@app["End"])
 
-    @starttime = DateTime.iso8601(@curr_app["Start"])
-    @endtime = DateTime.iso8601(@curr_app["End"])
 
+    # Get all users and the contrubutors of the appointment
     @otherusers = sql("SELECT ID, Username, Name, Surname FROM User WHERE Username != '#{current_user()["Username"]}';")
     @contributors = sql("SELECT User.ID " +
                         "FROM User, Appointment, UserAppointment " + 
                         "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-                        "AND Appointment.ID = '#{appid}';")
+                        "AND Appointment.ID = '#{@appid}';")
 
 
-    @appid = params[:id]
-    @backroute = "/appointment/" + appid
+    #Set necessary vars
+    @headline = "Ereignis bearbeiten"
+    @action = "/appointment_edit"
+    @method = "put"
 
 
-    @curr_app.to_s
-    #erb :appointment_edit
+    @backroute = "/appointment/" + @appid
+    erb :appointment_edit
 end
-
 
 
 
@@ -200,6 +257,17 @@ end
 
 
 
+
+# Unsubscribe the user from the selected appointment
+delete '/appointment_unsubscribe' do
+
+    #Delete
+    id = params[:id]
+    unsubscribe_user_from_appointment(current_user()["ID"], id)
+
+    #Redirect
+    redirect to("/overview")
+end
 
 
 

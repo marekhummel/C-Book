@@ -7,11 +7,11 @@
 }
 
 /* The whole div, containing the list of appointments */
-.agenda {
+.container {
 	position: relative;
 	
 	margin: 0px auto 30px auto;
-	padding: 0px;
+	padding: 10px;
 
 	width: 600px;
     height: auto;
@@ -27,7 +27,7 @@
 
 
 /* One appointment as div */
-.agenda .appointment {
+.container .appointment {
 	margin: 10px 10px;
 	padding: 10px 0px 10px 40px;
 
@@ -35,7 +35,7 @@
 }
 
 /* Hovering one appointment */
-.agenda div:hover {
+.container .appointment:hover {
 	background-color: rgba(50, 50, 50, 0.3);
 
 	border: 1px solid black;
@@ -44,7 +44,7 @@
 
 
 /* The title in one appointment*/
-.agenda .appointment p {
+.container .appointment p {
 	font-size: 19px;
 	margin: 0px;
 	text-decoration: none;
@@ -53,24 +53,26 @@
 
 
 /* The description in one appointment */
-.agenda .appointment span {
+.container .appointment span {
 	font-size: 15px;
 	margin-left: 20px;
 }
 
 /* The horizontal line */
-.agenda hr {
+.container .appointment hr {
 	margin: 0px 20px;
     height: 2px; 
     color: #000064;
     background: #000064;
 }
 
-.agenda button {
-    margin: 20px 6px 6px 0;
+
+
+
+.container button {
+    margin: 20px 6px 0px 6px;
     padding: 3px;
-    float: right;
-    width: 30%;
+    width: 25%;
     background-color: #000064;
     border: 1px solid white;
     color: white;
@@ -96,4 +98,19 @@
 .newappointment:hover {
 	background-color: rgba(0, 0, 100, 0.8);
 	text-decoration: underline;
+}
+
+
+
+.detail p {
+	font-size: 19px;
+	margin: 0px 0px 15px 0px;
+	text-decoration: underline;
+	color: #000064;
+}
+
+
+.detail span {
+	font-size: 14px;
+	margin: 0px;
 }

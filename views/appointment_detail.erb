@@ -6,31 +6,53 @@
 <!-- Overview -->
 
   
-<div class="agenda">
-	<h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
+<div class="container detail">
+	<p><%= "Ereignis: " + @appointment["Title"].to_s %></p>
 
-	<h5><%= "Beginn: " + DateTime.iso8601(@appointment["Start"]).Format! %></h5>
-	<h5><%= "Ende: " + DateTime.iso8601(@appointment["End"]).Format! %></h5>
+	<!-- Timespan -->
+	<span style="margin-right: 10px;"><u>Dauer:</u></span>
+	<span><%= DateTime.iso8601(@appointment["Start"]).Format! %></span>
+	<span style="margin: 0px 8px;">-</span>
+	<span><%= DateTime.iso8601(@appointment["End"]).Format! %></span><br><br>
 
-	<h5>
-	    <%= "Teilnehmer: " %>
+	<!-- Contributors -->
+	<span>
+	    <u style="margin-right: 5px;"><%= "Teilnehmer:" %></u> 	
 	    <% for cont in @contributors %>
-	        <i><%= get_fullname(cont) + ";" %> </i>
+	        <span style="font-size: 12px;"><%= get_fullname(cont) + ";" %> </span>
 	    <% end %>
-	</h5>
+	</span>
+
+
+	<% if @user_is_creator %>
+		<br><br><br><span>U ARE THE CREATOR</span>
+	<% end %>
 
 	<!-- Delete button -->
-	<form action="/appointment_delete" method="post">
-	    <input type="hidden" name="id" value=<%= id.to_s %> />
-	    <input type="hidden" name="_method" value="delete">
-	    <button type="submit">Löschen</button>
-	</form>
-
+	<% if @user_is_creator %>
+		<form action="/appointment_delete" method="post">
+		    <input type="hidden" name="id" value=<%= id.to_s %> />
+		    <input type="hidden" name="_method" value="delete">
+		    <button style="float: left;" type="submit">Löschen</button>
+		</form>
+	<% end %>
 
 	<!-- Edit button -->
-	<form action=<%= "/appointment/" + id.to_s + "/edit" %> method="get">
-	    <button type="submit">Bearbeiten</button>
-	</form>	
+	<% if @user_is_creator %>
+		<form action=<%= "/appointment/" + id.to_s + "/edit" %> method="get">
+		    <button style="float: right;" type="submit">Bearbeiten</button>
+		</form>	
+	<% end %>
+
+
+	<!-- Remove the user as contributor -->
+	<% if !@user_is_creator %>
+		<form action=<%= "/appointment_unsubscribe" %> method="post">
+			<input type="hidden" name="id" value=<%= id.to_s %> />
+			<input type="hidden" name="_method" value="delete">
+		    <button style="float: right;" type="submit">Nicht weiter teilnehmen</button>
+		</form>	
+	<% end %>
 </div>
 
 

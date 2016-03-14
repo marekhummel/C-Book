@@ -1,25 +1,26 @@
 <!-- EDIT APPOINTMENT -->
 
-<form class="app" action="/appointment_edit" method="post">
-    <headline>Ereignis bearbeiten</headline>
+<form class="app" action="<%= @action %>" method="post">
+    <headline><%= @headline %></headline>
 
     <label>Titel</label> 
-    <input type="text" name="title" value="<%= @curr_app["Title"] %>" >
+    <input type="text" name="title" value="<%= @app["Title"] %>" >
 
 
+    <!-- Start and end datetimes -->
     <label style="margin-top: 20px;">Beginn</label>
-    <input style="margin-top: 20px;" class="nud" name="startday" type="number" value="<%= @starttime.Day %>" max="31" min="1" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name="startmonth" type="number" value="<%= @starttime.Month %>" max="12" min="1" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name="startyear" type="number" value="<%= @starttime.Year %>" max="2050" min="1950" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name="starthours" type="number" value="<%= @starttime.Hours %>" max="23" min="0" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name="startmins" type="number" value="<%= @starttime.Minutes %>" max="59" min="0" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="startday" type="number" value="<%= @app["Start"].Day %>" max="31" min="1" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="startmonth" type="number" value="<%= @app["Start"].Month %>" max="12" min="1" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="startyear" type="number" value="<%= @app["Start"].Year %>" max="2050" min="1950" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="starthours" type="number" value="<%= @app["Start"].Hours %>" max="23" min="0" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name=x"startmins" type="number" value="<%= @app["Start"].Minutes %>" max="59" min="0" step="1"/>
 
     <label>Ende</label>
-    <input class="nud" name="endday" type="number" value="<%= @endtime.Day %>" max="31" min="1" step="1"/>
-    <input class="nud" name="endmonth" type="number" value="<%= @endtime.Month %>" max="12" min="1" step="1"/>
-    <input class="nud" name="endyear" type="number" value="<%= @endtime.Year %>" max="2050" min="1950" step="1"/>
-    <input class="nud" name="endhours" type="number" value="<%= @endtime.Hours %>" max="23" min="0" step="1"/>
-    <input class="nud" name="endmins" type="number" value="<%= @endtime.Minutes %>" max="59" min="0" step="1"/>
+    <input class="nud" name="endday" type="number" value="<%= @app["End"].Day %>" max="31" min="1" step="1"/>
+    <input class="nud" name="endmonth" type="number" value="<%= @app["End"].Month %>" max="12" min="1" step="1"/>
+    <input class="nud" name="endyear" type="number" value="<%= @app["End"].Year %>" max="2050" min="1950" step="1"/>
+    <input class="nud" name="endhours" type="number" value="<%= @app["End"].Hours %>" max="23" min="0" step="1"/>
+    <input class="nud" name="endmins" type="number" value="<%= @app["End"].Minutes %>" max="59" min="0" step="1"/>
 
 
 
@@ -44,7 +45,9 @@
 
     <!-- Extra variables to be posted -->
     <input type="hidden" name="id" value=<%= @appid %>>
-    <input type="hidden" name="_method" value="put">
+    <% if @method != "post" %>
+        <input type="hidden" name="_method" value="<%= @method %>">
+    <% end %>
 
     <!--  Submit button -->
     <button type="submit">Speichern</button>

@@ -44,7 +44,7 @@ class DateTime
     end
 
     def Format!
-       return self.FullDate + " - " + self.FullTime
+       return self.FullDate + ", " + self.FullTime
     end
 
 end 
