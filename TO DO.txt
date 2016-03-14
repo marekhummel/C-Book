@@ -3,26 +3,6 @@ TO DO
 PRIORITÄT:
 
 
-- 	Validation !
-
--	DateTime in DB ?
-
--	Styles.css
-
-- 	ganztägig
-
-- 	sql injection
-
-- 	account overview
-
-- 	edit appointment (contributors, default values)
 
 
-
-
-
-
-
-
--	Ereignisse chronologisch
--	vergangene Ereignisse färben
+APPOINTMENT EDIT <-> NEW

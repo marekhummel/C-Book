@@ -82,10 +82,27 @@ end
 
 # Add new appointment for the current user
 get '/appointment/new' do
-    @otherusers = sql("SELECT ID, Username, Name, Surname FROM User;").select {|user| user["Username"] != current_user()["Username"]}
-    
+ 
     @backroute = "/overview"
-    erb :appointment_new
+
+
+    @curr_app = {"Title" => "", "Start" => "", "End" => ""}
+
+    @starttime = DateTime.now
+    @endtime = DateTime.now
+
+    @otherusers = sql("SELECT ID, Username, Name, Surname FROM User WHERE Username != '#{current_user()["Username"]}';")
+    @contributors = sql("SELECT User.ID " +
+                        "FROM User, Appointment, UserAppointment " + 
+                        "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
+                        "AND Appointment.ID = '#{@appid}';")
+
+
+
+    @backroute = "/overview"
+
+
+    erb :appointment_edit
 end
 
 
@@ -143,27 +160,27 @@ end
 
 # Open appointment for editing / deleting and a general better overview
 get '/appointment/:id/edit' do
-    @appid = params[:id]
+    appid = params[:id]
 
         
-    @curr_app = sql("SELECT * FROM Appointment WHERE ID='#{@appid}' LIMIT 1;")[0]
+    @curr_app = sql("SELECT * FROM Appointment WHERE ID='#{appid}' LIMIT 1;")[0]
 
-    starttime = DateTime.iso8601(@curr_app["Start"])
-    endtime = DateTime.iso8601(@curr_app["End"])
-    @times = {"start" => starttime, "end" => endtime}
+    @starttime = DateTime.iso8601(@curr_app["Start"])
+    @endtime = DateTime.iso8601(@curr_app["End"])
 
     @otherusers = sql("SELECT ID, Username, Name, Surname FROM User WHERE Username != '#{current_user()["Username"]}';")
     @contributors = sql("SELECT User.ID " +
                         "FROM User, Appointment, UserAppointment " + 
                         "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-                        "AND Appointment.ID = '#{@appid}';")
+                        "AND Appointment.ID = '#{appid}';")
 
 
     @appid = params[:id]
-    @backroute = "/appointment/" + @appid
+    @backroute = "/appointment/" + appid
 
-    #erb :test
-    erb :appointment_edit
+
+    @curr_app.to_s
+    #erb :appointment_edit
 end
 
 

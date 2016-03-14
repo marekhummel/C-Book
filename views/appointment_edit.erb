@@ -1,7 +1,5 @@
 <!-- EDIT APPOINTMENT -->
 
-
-
 <form class="app" action="/appointment_edit" method="post">
     <headline>Ereignis bearbeiten</headline>
 
@@ -9,100 +7,19 @@
     <input type="text" name="title" value="<%= @curr_app["Title"] %>" >
 
 
-    <!-- Display of all comboboxes via a for loop -->
-    <% for line in ["start", "end"] %>
-        
-        <!-- Write "Beginn" or "Ende" at the begin depending on the current for-loop state -->
-        <label><%= (line == "start" ? "Beginn" : "Ende") %></label>
+    <label style="margin-top: 20px;">Beginn</label>
+    <input style="margin-top: 20px;" class="nud" name="startday" type="number" value="<%= @starttime.Day %>" max="31" min="1" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="startmonth" type="number" value="<%= @starttime.Month %>" max="12" min="1" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="startyear" type="number" value="<%= @starttime.Year %>" max="2050" min="1950" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="starthours" type="number" value="<%= @starttime.Hours %>" max="23" min="0" step="1"/>
+    <input style="margin-top: 20px;" class="nud" name="startmins" type="number" value="<%= @starttime.Minutes %>" max="59" min="0" step="1"/>
 
-        <label>Tag</label>
-        <select name=<%= line + "day" %>>
-            <% for day in 1..31 %>
-                <% text = (day < 10 ? "0" : "") + day.to_s %>
-                
-                <% if day == @times[line].Day %>
-                    <option selected><%= text %></option>
-                <% else %>
-                    <option><%= text %></option>
-                <% end %>
-
-            <% end %>
-        </select> 
-        
-
-        <label>Monat</label>
-        <select name=<%= line + "month" %>>
-            <% for month in 1..12 %>
-                <% text = (month < 10 ? "0" : "") + month.to_s %>
-                
-                <% if month == @times[line].Month %>
-                    <option selected><%= text %></option>
-                <% else %>
-                    <option><%= text %></option>
-                <% end %>
-
-            <% end %>
-        </select> 
-
-        <label>Jahr</label>
-        <select name=<%= line + "year" %> style="margin-right: 25px;" >
-            <% for year in 2000..2030 %>
-                <% text = (year < 10 ? "0" : "") + year.to_s %>
-                
-                <% if year == @times[line].Year %>
-                    <option selected><%= text %></option>
-                <% else %>
-                    <option><%= text %></option>
-                <% end %>
-
-            <% end %>
-        </select> 
-
-        <label>Stunde</label>
-        <select name=<%= line + "hours" %>>
-            <% for hour in 0..23 %>
-                <% text = (hour < 10 ? "0" : "") + hour.to_s %>
-                
-                <% if hour == @times[line].Hours %>
-                    <option selected><%= text %></option>
-                <% else %>
-                    <option><%= text %></option>
-                <% end %>
-
-            <% end %>
-        </select> 
-
-        <label>Minute</label>
-        <select name=<%= line + "mins" %>>
-            <% for min in 0..59 %>
-                <% text = (min < 10 ? "0" : "") + min.to_s %>
-                
-                <% if min == @times[line].Minutes %>
-                    <option selected>
-                <% else %>
-                    <option>
-                <% end %>
-
-                    <%= text %>
-                </option>
-
-            <% end %>
-        </select> 
-
-        <label>Sekunde</label>
-        <select name=<%= line + "secs" %>>
-            <% for second in 0..59 %>
-                <% text = (second < 10 ? "0" : "") + second.to_s %>
-                
-                <% if second == @times[line].Seconds %>
-                    <option selected><%= text %></option>
-                <% else %>
-                    <option><%= text %></option>
-                <% end %>
-
-            <% end %>
-        </select> 
-    <% end %>
+    <label>Ende</label>
+    <input class="nud" name="endday" type="number" value="<%= @endtime.Day %>" max="31" min="1" step="1"/>
+    <input class="nud" name="endmonth" type="number" value="<%= @endtime.Month %>" max="12" min="1" step="1"/>
+    <input class="nud" name="endyear" type="number" value="<%= @endtime.Year %>" max="2050" min="1950" step="1"/>
+    <input class="nud" name="endhours" type="number" value="<%= @endtime.Hours %>" max="23" min="0" step="1"/>
+    <input class="nud" name="endmins" type="number" value="<%= @endtime.Minutes %>" max="59" min="0" step="1"/>
 
 
 
@@ -110,27 +27,25 @@
 
 
     <!-- List all contributors -->
-    <p>
-        Teilnehmer: 
-        <div class="contributors">
-            <% for user in @otherusers %>
-                <% name = "cont-" + user["ID"].to_s%>
+    <label style="margin-top: 20px;">Teilnehmer</label>
+    <div class="contributors">
+        <% for user in @otherusers %>
+            <% name = "cont-" + user["ID"].to_s%>
 
-                <% if @contributors.any? { |u| u["ID"] == user["ID"]} %>
-                    <input name=<%= name %> type="checkbox" checked/>
-                <% else %>
-                    <input name=<%= name %> type="checkbox" />
-                <% end %>
-
-                <%= get_fullname(user) %><br />
+            <% if @contributors.any? { |u| u["ID"] == user["ID"]} %>
+                <input class="cb" name=<%= name %> type="checkbox" checked/>
+            <% else %>
+                <input class="cb" name=<%= name %> type="checkbox" />
             <% end %>
-        </div>
-    </p>
+
+            <span><%= get_fullname(user) %></span><br />
+        <% end %>
+    </div>
 
     <!-- Extra variables to be posted -->
     <input type="hidden" name="id" value=<%= @appid %>>
     <input type="hidden" name="_method" value="put">
 
     <!--  Submit button -->
-    <input type="submit" value="Speichern">
+    <button type="submit">Speichern</button>
 </form>

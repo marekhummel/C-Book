@@ -4,30 +4,33 @@
 <% id = @appointment["ID"] %>
  
 <!-- Overview -->
-<h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
-<i> <%= "    -- AppID: " + id.to_s %> </i>
+
   
+<div class="agenda">
+	<h3><%= "Ereignis: " + @appointment["Title"].to_s %></h3>
 
-<h5><%= "Beginn: " + DateTime.iso8601(@appointment["Start"]).Format! %></h5>
-<h5><%= "Ende: " + DateTime.iso8601(@appointment["End"]).Format! %></h5>
+	<h5><%= "Beginn: " + DateTime.iso8601(@appointment["Start"]).Format! %></h5>
+	<h5><%= "Ende: " + DateTime.iso8601(@appointment["End"]).Format! %></h5>
 
-<h5>
-    <%= "Teilnehmer: " %>
-    <% for cont in @contributors %>
-        <i><%= get_fullname(cont) + ";" %> </i>
-    <% end %>
-</h5>
+	<h5>
+	    <%= "Teilnehmer: " %>
+	    <% for cont in @contributors %>
+	        <i><%= get_fullname(cont) + ";" %> </i>
+	    <% end %>
+	</h5>
+
+	<!-- Delete button -->
+	<form action="/appointment_delete" method="post">
+	    <input type="hidden" name="id" value=<%= id.to_s %> />
+	    <input type="hidden" name="_method" value="delete">
+	    <button type="submit">Löschen</button>
+	</form>
 
 
-<!-- Delete button -->
-<form action="/appointment_delete" method="post">
-    <input type="hidden" name="id" value=<%= id.to_s %> />
-    <input type="hidden" name="_method" value="delete">
-    <button type="submit">Löschen</button>
-</form>
+	<!-- Edit button -->
+	<form action=<%= "/appointment/" + id.to_s + "/edit" %> method="get">
+	    <button type="submit">Bearbeiten</button>
+	</form>	
+</div>
 
 
-<!-- Edit button -->
-<form action=<%= "/appointment/" + id.to_s + "/edit" %> method="get">
-    <button type="submit">Bearbeiten</button>
-</form>
