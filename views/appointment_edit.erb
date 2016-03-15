@@ -9,18 +9,18 @@
 
     <!-- Start and end datetimes -->
     <label style="margin-top: 20px;">Beginn</label>
-    <input style="margin-top: 20px;" class="nud" name="startday" type="number" value="<%= @app["Start"].Day %>" max="31" min="1" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name="startmonth" type="number" value="<%= @app["Start"].Month %>" max="12" min="1" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name="startyear" type="number" value="<%= @app["Start"].Year %>" max="2050" min="1950" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name="starthours" type="number" value="<%= @app["Start"].Hours %>" max="23" min="0" step="1"/>
-    <input style="margin-top: 20px;" class="nud" name=x"startmins" type="number" value="<%= @app["Start"].Minutes %>" max="59" min="0" step="1"/>
+    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name="startday" type="number" value="<%= @app["Start"].day %>" max="31" min="1" step="1"/>
+    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name="startmonth" type="number" value="<%= @app["Start"].month %>" max="12" min="1" step="1"/>
+    <input style="margin-top: 20px; margin-right: 8%;" class="nud" name="startyear" type="number" value="<%= @app["Start"].year %>" max="2050" min="1950" step="1"/>
+    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name="starthours" type="number" value="<%= @app["Start"].hours %>" max="23" min="0" step="1"/>
+    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name=x"startmins" type="number" value="<%= @app["Start"].minutes %>" max="59" min="0" step="1"/>
 
     <label>Ende</label>
-    <input class="nud" name="endday" type="number" value="<%= @app["End"].Day %>" max="31" min="1" step="1"/>
-    <input class="nud" name="endmonth" type="number" value="<%= @app["End"].Month %>" max="12" min="1" step="1"/>
-    <input class="nud" name="endyear" type="number" value="<%= @app["End"].Year %>" max="2050" min="1950" step="1"/>
-    <input class="nud" name="endhours" type="number" value="<%= @app["End"].Hours %>" max="23" min="0" step="1"/>
-    <input class="nud" name="endmins" type="number" value="<%= @app["End"].Minutes %>" max="59" min="0" step="1"/>
+    <input style="margin-right: 3%;" class="nud" name="endday" type="number" value="<%= @app["End"].day %>" max="31" min="1" step="1"/>
+    <input style="margin-right: 3%;"class="nud" name="endmonth" type="number" value="<%= @app["End"].month %>" max="12" min="1" step="1"/>
+    <input style="margin-right: 8%;"class="nud" name="endyear" type="number" value="<%= @app["End"].year %>" max="2050" min="1950" step="1"/>
+    <input style="margin-right: 3%;"class="nud" name="endhours" type="number" value="<%= @app["End"].hours %>" max="23" min="0" step="1"/>
+    <input style="margin-right: 3%;"class="nud" name="endmins" type="number" value="<%= @app["End"].minutes %>" max="59" min="0" step="1"/>
 
 
 
@@ -39,7 +39,7 @@
                 <input class="cb" name=<%= name %> type="checkbox" />
             <% end %>
 
-            <span><%= get_fullname(user) %></span><br />
+            <span><%= get_fullname(user, true) %></span><br />
         <% end %>
     </div>
 

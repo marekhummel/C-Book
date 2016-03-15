@@ -40,3 +40,29 @@ def logout
 end
 
 
+
+
+# Returns the full name of an user
+def get_fullname(user, short)
+	if (short && user["ID"] == current_user()["ID"]) then
+		return "Du"
+	end
+
+    return user["Name"] + " " + user["Surname"]
+end
+
+# Checks whether the given user is an admin
+def is_admin?(user)
+    return user["IsAdmin"] != 0
+end
+
+
+
+# Formats the timespan defined by two datetimes
+def format_duration_datetimes(starttime, endtime) 
+    if (starttime.full_date == endtime.full_date)
+        return starttime.full_date + ", " + starttime.full_time + " - " + endtime.full_time
+    end
+
+    return starttime.format! + "  -  " + endtime.format!
+end

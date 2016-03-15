@@ -131,8 +131,8 @@ end
 post '/appointment_new' do
     #concat params
     title = params[:title]
-    startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, params[:startsecs].to_i).to_s
-    endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, params[:endsecs].to_i).to_s
+    startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, 0).to_s
+    endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, 0).to_s
 
 
     #Get all contributors
@@ -148,7 +148,7 @@ post '/appointment_new' do
     end
 
     #Add appointment
-    insert_appointment(title, startTime, endTime, conts)
+    insert_appointment(title, startTime, endTime, current_user()["ID"], conts)
 
     #Redirect
     redirect to("/overview")
@@ -169,9 +169,9 @@ end
 
 
 
-# ***************************
-# ***  APPOINTMENT DETAIL ***
-# *************************** 
+# ****************************
+# ***  APPOINTMENT DETAIL  ***
+# **************************** 
 
 
 
@@ -186,13 +186,23 @@ get '/appointment/:id' do
     # Stop if this appointment doesn't exist
     return if @appointment == nil
 
-    @contributors = sql("SELECT User.Name, User.Surname " +
-                        "FROM User, Appointment, UserAppointment " + 
-                        "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
-                        "AND Appointment.ID = '#{appid}';")
+    #Contributors
+    all_conts = sql("SELECT User.ID, User.Name, User.Surname, UserAppointment.UserIsCreator " +
+                    "FROM User, Appointment, UserAppointment " + 
+                    "WHERE UserAppointment.UserID = User.ID AND UserAppointment.AppointmentID = Appointment.ID " +
+                    "AND Appointment.ID = '#{appid}';")
 
-    ua = sql("SELECT * FROM UserAppointment WHERE UserID = '#{userid}' AND AppointmentID = '#{appid}';")
-    @user_is_creator = (ua[0]["UserIsCreator"] != 0) 
+    #Get the creator
+    @creator = all_conts.detect{|cont| cont["UserIsCreator"] != 0}
+
+    #Get the remaining contributors
+    @contributors = all_conts.select{|cont| cont["UserIsCreator"] == 0}
+
+    #Is the current user the creator ?
+    @user_is_creator = (userid == @creator["ID"]) 
+
+
+
 
     @backroute = "/overview"
     erb :appointment_detail
@@ -262,8 +272,8 @@ end
 delete '/appointment_unsubscribe' do
 
     #Delete
-    id = params[:id]
-    unsubscribe_user_from_appointment(current_user()["ID"], id)
+    appid = params[:id]
+    unsubscribe_user_from_appointment(current_user()["ID"], appid)
 
     #Redirect
     redirect to("/overview")
@@ -280,11 +290,11 @@ put '/appointment_edit' do
 
     #concat params
     title = params[:title]
-    startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, params[:startsecs].to_i).to_s
-    endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, params[:endsecs].to_i).to_s
+    startTime = DateTime.new(params[:startyear].to_i, params[:startmonth].to_i, params[:startday].to_i, params[:starthours].to_i, params[:startmins].to_i, 0).to_s
+    endTime = DateTime.new(params[:endyear].to_i, params[:endmonth].to_i, params[:endday].to_i, params[:endhours].to_i, params[:endmins].to_i, 0).to_s
 
     #Get all contributors
-    conts = [current_user()["ID"]]
+    conts = []
     for p in params do
         key = p[0]
 
@@ -296,8 +306,8 @@ put '/appointment_edit' do
 
 
     #Update
-    edit_appointment(id, title, startTime, endTime, conts)
+    edit_appointment(id, title, startTime, endTime, current_user()["ID"], conts)
 
     #Redirect
-    redirect to("/overview")
+    redirect to("/appointment/" + id.to_s)
 end

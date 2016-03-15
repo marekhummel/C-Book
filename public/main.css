@@ -1,0 +1,9 @@
+body {
+	background-image: url('/images/background.jpeg');
+}
+
+
+.content {
+	margin-top: 8px;
+	padding: 40px 10px 10px 10px;
+}

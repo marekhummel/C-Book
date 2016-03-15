@@ -2,31 +2,29 @@
 
 class DateTime
 
-    def Year    
+    def year    
         return self.strftime("%Y").to_i
     end
 
-    def Month
+    def month
         return self.strftime("%m").to_i
     end
 
-    def Day
+    def day
         return self.strftime("%d").to_i
     end
 
-    def Hours
+    def hours
         return self.strftime("%H").to_i
     end
 
-    def Minutes
+    def minutes
         return self.strftime("%M").to_i
     end
 
-    def Seconds
-        return self.strftime("%S").to_i
-    end
 
-    def DayOfTheWeek
+
+    def day_of_the_week
         i = self.strftime("%w").to_i
         days = ["Sonntag", "Montag", "Dienstag", "MIttwoch", "Donnerstag", "Freitag", "Samstag"]
 
@@ -35,16 +33,16 @@ class DateTime
 
 
 
-    def FullDate
-        return self.DayOfTheWeek + ", " + self.strftime("%d.%m.%Y")
+    def full_date
+        return self.day_of_the_week + ", " + self.strftime("%d.%m.%Y")
     end
 
-    def FullTime 
+    def full_time 
         return self.strftime("%H:%M") + " Uhr"
     end
 
-    def Format!
-       return self.FullDate + ", " + self.FullTime
+    def format!
+       return self.full_date + ", " + self.full_time 
     end
 
 end 

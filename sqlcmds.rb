@@ -19,15 +19,7 @@ def insert_user(username, hash, name, surname, bday)
 end
 
 
-# Returns the full name of an user
-def get_fullname(user)
-    return user["Name"] + " " + user["Surname"]
-end
 
-# Checks whether the given user is an admin
-def is_admin?(user)
-    return user["IsAdmin"] != 0
-end
 
 
 
@@ -75,7 +67,7 @@ def insert_appointment(title, start, finish, creator, contributors)
     for id in contributors do
         sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{id}','#{app_id}');")
     end
-    sql("INSERT INTO UserAppointment (UserID, AppointmentID, UserIsCreator) VALUES ('#{creator}','#{app_id}'), '1';")
+    sql("INSERT INTO UserAppointment (UserID, AppointmentID, UserIsCreator) VALUES ('#{creator}','#{app_id}', '1');")
 
 end
 
@@ -98,7 +90,7 @@ end
 
 
 # Updates an appointment
-def edit_appointment(id, title, start, finish, contributors)
+def edit_appointment(id, title, start, finish, creator, contributors)
 
     #Edit appointment
     sql("UPDATE Appointment SET Title='#{title}', Start='#{start}', End='#{finish}' WHERE ID='#{id}';" )
@@ -107,9 +99,9 @@ def edit_appointment(id, title, start, finish, contributors)
     sql ("DELETE FROM UserAppointment WHERE AppointmentID = '#{id}';")  #Delete current relations
 
     for contid in contributors
-        #Add each cont indivdually
         sql("INSERT INTO UserAppointment (UserID, AppointmentID) VALUES ('#{contid}','#{id}');")
     end
+    sql("INSERT INTO UserAppointment (UserID, AppointmentID, UserIsCreator) VALUES ('#{creator}','#{id}', '1');")
 end
 
 

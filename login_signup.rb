@@ -67,7 +67,7 @@ post "/signup" do
     insert_user(params[:username], password_hash(params[:password]), params[:name], params[:surname], bday)
     
     #Save user in file
-    File.open("users.txt", "a+") { |f| f.write("#{params[:username]}|#{params[:password]}\r\n")  }
+    File.open("EXTRAS/users.txt", "a+") { |f| f.write("#{params[:username]}|#{params[:password]}\r\n")  }
 
     #Log In
     user = query_user(params[:username])

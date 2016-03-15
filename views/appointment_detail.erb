@@ -7,26 +7,35 @@
 
   
 <div class="container detail">
-	<p><%= "Ereignis: " + @appointment["Title"].to_s %></p>
+	<p><%= @appointment["Title"].to_s %></p>
 
 	<!-- Timespan -->
 	<span style="margin-right: 10px;"><u>Dauer:</u></span>
-	<span><%= DateTime.iso8601(@appointment["Start"]).Format! %></span>
-	<span style="margin: 0px 8px;">-</span>
-	<span><%= DateTime.iso8601(@appointment["End"]).Format! %></span><br><br>
+	<% starttime = DateTime.iso8601(@appointment["Start"]) %>
+	<% endtime = DateTime.iso8601(@appointment["End"]) %>
+	<span><%= format_duration_datetimes(starttime, endtime) %></span><br><br>
+
+
+	<!-- Creator -->
+	<span>
+	    <u style="margin-right: 5px;"><%= "Ersteller:" %></u> 	
+	    <span style="font-size: 12px;"><%= get_fullname(@creator, true) %> </span><br>
+	</span>
+
 
 	<!-- Contributors -->
 	<span>
-	    <u style="margin-right: 5px;"><%= "Teilnehmer:" %></u> 	
-	    <% for cont in @contributors %>
-	        <span style="font-size: 12px;"><%= get_fullname(cont) + ";" %> </span>
+	    <u style="margin-right: 5px;"><%= "Teilnehmer:" %></u> 
+	    <% if @contributors.size > 0 %>	
+		    <% for cont in @contributors %>
+		        <span style="font-size: 12px;"><%= get_fullname(cont, true) + ";" %> </span>
+		    <% end %>
+		<% else %>
+			<span style="font-size: 12px;">-----</span>
 	    <% end %>
 	</span>
 
 
-	<% if @user_is_creator %>
-		<br><br><br><span>U ARE THE CREATOR</span>
-	<% end %>
 
 	<!-- Delete button -->
 	<% if @user_is_creator %>

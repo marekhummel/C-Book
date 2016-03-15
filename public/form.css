@@ -1,4 +1,6 @@
-form.auth, .app {
+/* STYLE SETTINGS FOR BOTH TYPES OF FORMS */
+
+form.auth, form.app {
     overflow: hidden;
 
     width: 600px;
@@ -12,95 +14,7 @@ form.auth, .app {
 }
 
 
-/* Authentication forms (login, signup) */
-form.auth headline {
-    width: 100%;
-    margin: 10px 0px 20px 0px;
-
-    float: left;
-
-    text-align: center;
-    text-decoration: underline;
-    font-family: 'Lato';
-    color: #000064;
-    font-size: 20px;
-    text-shadow: 1px 1px black;
-}
-
-
-form.auth input {
-    float: left;
-    width: 40%;
-
-    margin: 6px 0px;
-    padding: 2px 5px;
-
-    background-color: #fffbf0;
-    border: 1px solid #aaa;
-    color: #555;
-}
-
-form.auth input:focus {
-    border: thin solid rgba(0, 0, 100, 0.8);
-}
-
-
-
-form.auth label {
-    width: 40%;
-    margin-right: 10px;
-    margin-top: 5px;
-
-    text-align: right;
-    line-height: 1.5;
-    float: left;
-}
-
-
-form.auth label::after {
-    content: ":";
-}
-
-
-form.auth input.nud {
-    margin: 6px 5% 6px 0px;
-    padding: 2px 1px;
-    width: 10%;
-
-    background-color: #fffbf0;
-    border: 1px solid #000064;
-
-    text-align: center;
-
-    float: left;
-}
-
-
-
-form.auth button {
-    margin: 20px 6px 6px 0;
-    padding: 3px;
-    float: right;
-    width: 30%;
-    background-color: #000064;
-    border: 1px solid white;
-    color: white;
-}
-
-
-
-
-
-
-
-
-
-/* ---------------------------------------------
-   ---------------------------------------------
-   --------------------------------------------- */
-
-/* Appointment editing forms */
-form.app headline {
+form.app headline, form.auth headline {
     width: 100%;
     margin: 10px 0px 20px 0px;
 
@@ -115,38 +29,24 @@ form.app headline {
 }
 
 
-form.app input {
+form.auth input, form.app input {
     float: left;
-    width: 70%;
 
     margin: 6px 0px;
     padding: 2px 5px;
-    
+
     background-color: #fffbf0;
     border: 1px solid black;
     color: #555;
 }
 
-
-
-form.app input:focus {
+form.auth input:focus, form.app input:focus {
     border: thin solid rgba(0, 0, 100, 0.8);
 }
 
 
 
-form.app label {
-    width: 20%;
-    margin-right: 10px;
-    margin-top: 5px;
-
-    text-align: right;
-    line-height: 1.5;
-    float: left;
-}
-
-form.app label.small {
-    width: 7%;
+form.auth label, form.app label {
     margin-right: 10px;
     margin-top: 5px;
 
@@ -156,12 +56,12 @@ form.app label.small {
 }
 
 
-form.app label::after {
+form.auth label::after, form.app label::after {
     content: ":";
 }
 
 
-form.app input.nud {
+form.auth input.nud, form.app input.nud {
     margin: 6px 5% 6px 0px;
     padding: 2px 1px;
     width: 10%;
@@ -176,6 +76,48 @@ form.app input.nud {
 
 
 
+
+form.auth button, form.app button {
+    margin: 20px 6px 6px 0;
+    padding: 3px;
+    float: right;
+    width: 30%;
+    background-color: #000064;
+    border: 1px solid white;
+    color: white;
+}
+
+form button:hover {
+    font-weight: bold;
+}
+
+
+
+
+
+
+/* ONLY FOR AUTHENTICATION / APPOINTMENT FORMS */
+form.auth input {
+	width: 40%; 
+}
+
+form.app input {
+	width: 70%; 
+}
+
+
+
+form.auth label {
+	width: 40%; 
+}
+
+form.app label {
+	width: 20%; 
+}
+
+
+
+
 form.app input.cb {
     margin: 3px 5px 0px 5px;
     padding: 0;
@@ -187,19 +129,6 @@ form.app input.cb {
 
     float: left;
 }
-
-
-
-form.app button {
-    margin: 20px 6px 6px 0;
-    padding: 3px;
-    float: right;
-    width: 30%;
-    background-color: #000064;
-    border: 1px solid white;
-    color: white;
-}
-
 
 
 form.app div.contributors { 
