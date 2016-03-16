@@ -1,26 +1,26 @@
 <!-- EDIT APPOINTMENT -->
 
-<form class="app" action="<%= @action %>" method="post">
+<form class="app" action="<%= @action %>" method="post" onsubmit="return validateForm()">
     <headline><%= @headline %></headline>
 
     <label>Titel</label> 
-    <input type="text" name="title" value="<%= @app["Title"] %>" >
+    <input type="text" name="title" value="<%= @app["Title"] %>" required>
 
 
     <!-- Start and end datetimes -->
     <label style="margin-top: 20px;">Beginn</label>
-    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name="startday" type="number" value="<%= @app["Start"].day %>" max="31" min="1" step="1"/>
-    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name="startmonth" type="number" value="<%= @app["Start"].month %>" max="12" min="1" step="1"/>
-    <input style="margin-top: 20px; margin-right: 8%;" class="nud" name="startyear" type="number" value="<%= @app["Start"].year %>" max="2050" min="1950" step="1"/>
-    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name="starthours" type="number" value="<%= @app["Start"].hours %>" max="23" min="0" step="1"/>
-    <input style="margin-top: 20px; margin-right: 3%;" class="nud" name=x"startmins" type="number" value="<%= @app["Start"].minutes %>" max="59" min="0" step="1"/>
+    <input style="margin-top: 20px; margin-right: 3%;" oninput="validateTimes()" class="nud" name="startday" type="number" value="<%= @app["Start"].day %>" max="31" min="1" step="1">
+    <input style="margin-top: 20px; margin-right: 3%;" oninput="validateTimes()" class="nud" name="startmonth" type="number" value="<%= @app["Start"].month %>" max="12" min="1" step="1">
+    <input style="margin-top: 20px; margin-right: 8%;" oninput="validateTimes()" class="nud" name="startyear" type="number" value="<%= @app["Start"].year %>" max="2050" min="1950" step="1">
+    <input style="margin-top: 20px; margin-right: 3%;" oninput="validateTimes()" class="nud" name="starthours" type="number" value="<%= @app["Start"].hours %>" max="23" min="0" step="1">
+    <input style="margin-top: 20px; margin-right: 3%;" oninput="validateTimes()" class="nud" name="startmins" type="number" value="<%= @app["Start"].minutes %>" max="59" min="0" step="1">
 
     <label>Ende</label>
-    <input style="margin-right: 3%;" class="nud" name="endday" type="number" value="<%= @app["End"].day %>" max="31" min="1" step="1"/>
-    <input style="margin-right: 3%;"class="nud" name="endmonth" type="number" value="<%= @app["End"].month %>" max="12" min="1" step="1"/>
-    <input style="margin-right: 8%;"class="nud" name="endyear" type="number" value="<%= @app["End"].year %>" max="2050" min="1950" step="1"/>
-    <input style="margin-right: 3%;"class="nud" name="endhours" type="number" value="<%= @app["End"].hours %>" max="23" min="0" step="1"/>
-    <input style="margin-right: 3%;"class="nud" name="endmins" type="number" value="<%= @app["End"].minutes %>" max="59" min="0" step="1"/>
+    <input style="margin-right: 3%;" oninput="validateTimes()" class="nud" name="endday" type="number" value="<%= @app["End"].day %>" max="31" min="1" step="1">
+    <input style="margin-right: 3%;" oninput="validateTimes()" class="nud" name="endmonth" type="number" value="<%= @app["End"].month %>" max="12" min="1" step="1">
+    <input style="margin-right: 8%;" oninput="validateTimes()" class="nud" name="endyear" type="number" value="<%= @app["End"].year %>" max="2050" min="1950" step="1">
+    <input style="margin-right: 3%;" oninput="validateTimes()" class="nud" name="endhours" type="number" value="<%= @app["End"].hours %>" max="23" min="0" step="1">
+    <input style="margin-right: 3%;" oninput="validateTimes()" class="nud" name="endmins" type="number" value="<%= @app["End"].minutes %>" max="59" min="0" step="1">
 
 
 
@@ -52,3 +52,53 @@
     <!--  Submit button -->
     <button type="submit">Speichern</button>
 </form>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    function validateTimes() {
+
+        //Get all nuds (numeric up downs) on this page
+        var nuds = nlToArray(document.getElementsByClassName("nud"));          
+                           
+        
+        //Get the value of the nuds
+        var values = nuds.map(function(n) {return n.value;});
+        
+        //Create start and end date objects 
+        var start = new Date(values[2], values[1]-1, values[0], values[3], values[4], 0, 0);
+        var end = new Date(values[7], values[6]-1, values[5], values[8], values[9], 0, 0);
+        
+        //Validate
+        nuds.forEach(function(n) {
+            n.setAttribute("isvalid", (start >= end ? "false" : "true"));
+        });
+    }
+
+
+    //Validates the form
+    function validateForm() {
+        //Get all nuds (numeric up downs) on this page
+        var nuds = nlToArray(document.getElementsByClassName("nud"));   
+
+        //Return true, if all nuds are valid (are not invalid)
+        return nuds.every(function(n) {return n.getAttribute("isvalid") != "false";});
+    }
+
+
+
+
+    //Copy the elements of the returned nodelist into an array    
+    function nlToArray(nl) {
+        var arr = [];                                                                          
+        for (var i = nl.length; i--; arr.unshift(nl[i]));
+        return arr;
+    }
+    
+</script>

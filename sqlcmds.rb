@@ -107,5 +107,5 @@ end
 
 # Returns a pseudo appointment
 def create_empty_appointment()
-    return  {"Title" => "", "Start" => DateTime.now, "End" => DateTime.now}
+    return  {"Title" => "", "Start" => DateTime.now, "End" => DateTime.now + (30/60.0/24.0)}   # Add half an hour
 end

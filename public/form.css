@@ -34,6 +34,8 @@ form.auth input, form.app input {
 
     margin: 6px 0px;
     padding: 2px 5px;
+    box-sizing: border-box;
+
 
     background-color: #fffbf0;
     border: 1px solid black;
@@ -65,6 +67,7 @@ form.auth input.nud, form.app input.nud {
     margin: 6px 5% 6px 0px;
     padding: 2px 1px;
     width: 10%;
+    box-sizing: content-box;
 
     background-color: #fffbf0;
     border: 1px solid #000064;
@@ -74,6 +77,11 @@ form.auth input.nud, form.app input.nud {
     float: left;
 }
 
+
+
+form.auth input.nud[isvalid="false"], form.app input.nud[isvalid="false"] {
+    background-color: red;
+}
 
 
 
