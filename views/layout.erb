@@ -19,8 +19,10 @@
         <script type="text/javascript">
             /*Escape does the same as clicking the "back" link*/
             window.onkeydown = function( event ) {
-                if ( event.keyCode === 27 ) {
-                    window.location = '<%= @backroute %>';
+                // alert(event.keyCode)
+                var c = event.keyCode;
+                if ( c == 27 || c == 46 ) {
+                    window.location = ' <%= @backroute %>';
                 }
             };
         </script>
@@ -55,7 +57,7 @@
                     <% if logged_in? then %>
                         <p style="margin: 0px 0px 5px 0px;">
                             Zurzeit angmeldet:   
-                            <a href="/account"><%= get_fullname(current_user(), false) %></a>
+                            <span><%= get_fullname(current_user(), false) %></span>
                             <br>
                         </p>
 

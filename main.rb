@@ -52,13 +52,6 @@ end
 
 
 
-# Account settings
-get '/account' do
-    erb :account
-end
-
-
-
 
 
 
@@ -82,10 +75,19 @@ get '/overview' do
 
     @appointments = query_appointments_of_user(userid)
 
+    @user_is_creator = []
+    for app in @appointments
+        id = app["ID"] 
+        sql = sql("SELECT * FROM UserAppointment WHERE AppointmentID = '#{id}' AND UserID = '#{userid}' AND UserIsCreator != '0';")
+
+        if (sql.size > 0) then
+            @user_is_creator.push(id)
+        end
+    end
+
     @backroute = "/overview"
     erb :overview
 end
-
 
 
 

@@ -48,6 +48,7 @@ form.auth input:focus, form.app input:focus {
 
 
 
+
 form.auth label, form.app label {
     margin-right: 10px;
     margin-top: 5px;
@@ -80,7 +81,8 @@ form.auth input.nud, form.app input.nud {
 
 
 form.auth input.nud[isvalid="false"], form.app input.nud[isvalid="false"] {
-    background-color: red;
+    background-color: #FFDDDD ;
+    border: 1px solid #FF0000;
 }
 
 
@@ -124,6 +126,10 @@ form.app label {
 }
 
 
+form.auth input[type="password"][isvalid="false"] {
+    background-color: #FFDDDD ;
+    border: 1px solid #FF0000;
+}
 
 
 form.app input.cb {

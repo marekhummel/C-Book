@@ -39,7 +39,7 @@
 
 	<!-- Delete button -->
 	<% if @user_is_creator %>
-		<form action="/appointment_delete" method="post">
+		<form action="/appointment_delete" method="post" onsubmit="return validateDelete()">
 		    <input type="hidden" name="id" value=<%= id.to_s %> />
 		    <input type="hidden" name="_method" value="delete">
 		    <button style="float: left;" type="submit">Löschen</button>
@@ -56,7 +56,7 @@
 
 	<!-- Remove the user as contributor -->
 	<% if !@user_is_creator %>
-		<form action=<%= "/appointment_unsubscribe" %> method="post">
+		<form action=<%= "/appointment_unsubscribe" %> method="post" onsubmit="return validateUnsubscribe()">
 			<input type="hidden" name="id" value=<%= id.to_s %> />
 			<input type="hidden" name="_method" value="delete">
 		    <button style="float: right;" type="submit">Nicht weiter teilnehmen</button>
@@ -64,4 +64,22 @@
 	<% end %>
 </div>
 
+
+
+
+
+
+
+
+<script type="text/javascript">
+	function validateDelete() {
+		var msg = confirm("Dieses Ereignis löschen?");
+		return msg;
+	}
+
+	function validateUnsubscribe() {
+		var msg = confirm("An diesem Ereignis nicht mehr teilnehmen?");
+		return msg;
+	}
+</script>
 

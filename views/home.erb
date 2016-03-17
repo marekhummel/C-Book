@@ -24,9 +24,9 @@
     <label>Benutzername</label> 
     <input type="text" name="username" autocomplete="off" class="inputusername">
     <label>Passwort</label> 
-    <input type="password" name="password" autocomplete="off">
+    <input type="password" name="password" autocomplete="off" oninput="validatePasswords()">
     <label>Passwort bestätigen</label> 
-    <input type="password" name="confirmation" autocomplete="off"></br>
+    <input type="password" name="confirmation" autocomplete="off" oninput="validatePasswords()"></br>
 
 
     <!-- Fullname -->
@@ -47,4 +47,32 @@
 
 
 
+
+<script type="text/javascript">
+    function validatePasswords() {
+
+        //Get all nuds (numeric up downs) on this page
+        var pw = nlToArray(document.getElementsByTagName("input")).filter(function(e) {return e.getAttribute("type") == "password"});          
+
+        
+        //Get the value of the nuds
+        var values = pw.map(function(p) {return p.value;});
+        
+        
+        //Validate
+        pw.forEach(function(p) {
+            p.setAttribute("isvalid", (values[0] != values[1] ? "false" : "true"));
+        });
+    }
+
+
+
+    //Copy the elements of the returned nodelist into an array    
+    function nlToArray(nl) {
+        var arr = [];                                                                          
+        for (var i = nl.length; i--; arr.unshift(nl[i]));
+        return arr;
+    }
+    
+</script>
  
