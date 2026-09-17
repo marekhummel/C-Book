@@ -1,4 +1,4 @@
-# HELPER METHODS 
+# HELPER METHODS
 
 
 
@@ -59,7 +59,7 @@ end
 
 
 # Formats the timespan defined by two datetimes
-def format_duration_datetimes(starttime, endtime) 
+def format_duration_datetimes(starttime, endtime)
     if (starttime.full_date == endtime.full_date)
         return starttime.full_date + ", " + starttime.full_time + " - " + endtime.full_time
     end
